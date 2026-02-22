@@ -5,5 +5,5 @@ export const Route = createFileRoute('/login')({
 })
 
 function LoginPage() {
-  return <div>Component</div>
+  return <div>Login page</div>
 }
