@@ -142,7 +142,7 @@ function DashboardPage() {
 
           <div
             className="
-      absolute left-1/2 -translate-x-1/2
+      fixed left-1/2 -translate-x-1/2
       w-full max-w-3xl px-4
       hidden sm:block
     "

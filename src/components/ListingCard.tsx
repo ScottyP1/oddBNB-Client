@@ -33,7 +33,7 @@ const ListingCard = ({
           absolute inset-x-0 top-0 h-[75%]
           rounded-3xl overflow-hidden z-10
           transition-transform duration-300 ease-out
-          
+          shadow-[0px_10px_12px_3px_rgba(0,0,0,0.3)] shadow-black
           /* Hover only on desktop */
           md:group-hover:-translate-y-12
         "
@@ -53,7 +53,7 @@ const ListingCard = ({
       </div>
 
       {/* Content */}
-      <div className="absolute inset-x-0 bottom-0 px-5 pt-4 pb-5">
+      <div className="absolute inset-x-0 bottom-0 px-5 pt-16 pb-2">
         <div className="flex flex-col gap-1 text-sm text-gray-600">
           <span className="flex items-center gap-2">
             <BedIcon size={15} />
@@ -65,7 +65,7 @@ const ListingCard = ({
           <span>{capacity} guests</span>
         </div>
 
-        <div className="flex flex-col mt-2">
+        <div className="flex flex-col mt-3">
           <h3 className="font-semibold text-lg">{title}</h3>
 
           <div className="flex items-center justify-between">
