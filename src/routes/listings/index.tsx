@@ -1,5 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Link } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
 import FilterBar from '@/components/FilterBar'
 import AuthBtnGroup from '@/components/AuthBtnGroup'
@@ -7,8 +6,8 @@ import ListingCard from '@/components/ListingCard'
 
 import TemplateCardImg from '/templateCardImg.jpg'
 
-export const Route = createFileRoute('/dashboard')({
-  component: DashboardPage,
+export const Route = createFileRoute('/listings/')({
+  component: ListingsPage,
 })
 
 const DummyData = [
@@ -126,7 +125,7 @@ const DummyData = [
   },
 ]
 
-function DashboardPage() {
+function ListingsPage() {
   return (
     <div className="relative min-h-screen w-full bg-linear-to-t from-gray-500 to-white">
       <section
@@ -171,16 +170,21 @@ function DashboardPage() {
           "
         >
           {DummyData.map((item) => (
-            <ListingCard
+            <Link
+              to="/listings/$listingId"
+              params={{ listingId: String(item.id) }}
               key={item.id}
-              title={item.title}
-              pricePerNight={item.pricePerNight}
-              beds={item.beds}
-              baths={item.baths}
-              capacity={item.capacity}
-              images={item.images}
-              reviews={item.reviews}
-            />
+            >
+              <ListingCard
+                title={item.title}
+                pricePerNight={item.pricePerNight}
+                beds={item.beds}
+                baths={item.baths}
+                capacity={item.capacity}
+                images={item.images}
+                reviews={item.reviews}
+              />
+            </Link>
           ))}
         </div>
       </section>
