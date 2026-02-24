@@ -10,7 +10,7 @@ export const Route = createFileRoute('/dashboard')({
 
 function DashboardPage() {
   return (
-    <div className="h-screen w-full bg-linear-to-t from-gray-500 to-white">
+    <div className="relative min-h-screen w-full bg-linear-to-t from-[#565656] to-[#adb7d8]">
       <AuthBtnGroup className="mt-4 mr-4" />
 
       <section className="p-12 flex flex-col gap-24">

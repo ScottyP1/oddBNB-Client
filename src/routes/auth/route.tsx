@@ -19,12 +19,12 @@ function AuthLayout() {
       {/* Decorations */}
       <img
         src={dotGridImg}
-        className="absolute top-0 left-0 z-10 pointer-events-none"
+        className="absolute top-0 left-0 z-20 pointer-events-none"
         width={500}
       />
       <img
         src={dotGridImg}
-        className="absolute bottom-0 right-0 z-10 pointer-events-none"
+        className="absolute bottom-0 right-0 z-20 pointer-events-none"
         width={500}
       />
 
