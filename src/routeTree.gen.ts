@@ -10,9 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ListingsRouteRouteImport } from './routes/listings/route'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ListingsIndexRouteImport } from './routes/listings/index'
+import { Route as ListingsListingIdRouteImport } from './routes/listings/$listingId'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthPasswordResetRouteImport } from './routes/auth/PasswordReset'
@@ -22,9 +24,9 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const ListingsRouteRoute = ListingsRouteRouteImport.update({
+  id: '/listings',
+  path: '/listings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
@@ -36,6 +38,16 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ListingsIndexRoute = ListingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ListingsRouteRoute,
+} as any)
+const ListingsListingIdRoute = ListingsListingIdRouteImport.update({
+  id: '/$listingId',
+  path: '/$listingId',
+  getParentRoute: () => ListingsRouteRoute,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
   id: '/register',
@@ -56,65 +68,75 @@ const AuthPasswordResetRoute = AuthPasswordResetRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
-  '/dashboard': typeof DashboardRoute
+  '/listings': typeof ListingsRouteRouteWithChildren
   '/profile': typeof ProfileRoute
   '/auth/PasswordReset': typeof AuthPasswordResetRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/listings/$listingId': typeof ListingsListingIdRoute
+  '/listings/': typeof ListingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
-  '/dashboard': typeof DashboardRoute
   '/profile': typeof ProfileRoute
   '/auth/PasswordReset': typeof AuthPasswordResetRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/listings/$listingId': typeof ListingsListingIdRoute
+  '/listings': typeof ListingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
-  '/dashboard': typeof DashboardRoute
+  '/listings': typeof ListingsRouteRouteWithChildren
   '/profile': typeof ProfileRoute
   '/auth/PasswordReset': typeof AuthPasswordResetRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/listings/$listingId': typeof ListingsListingIdRoute
+  '/listings/': typeof ListingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auth'
-    | '/dashboard'
+    | '/listings'
     | '/profile'
     | '/auth/PasswordReset'
     | '/auth/login'
     | '/auth/register'
+    | '/listings/$listingId'
+    | '/listings/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
-    | '/dashboard'
     | '/profile'
     | '/auth/PasswordReset'
     | '/auth/login'
     | '/auth/register'
+    | '/listings/$listingId'
+    | '/listings'
   id:
     | '__root__'
     | '/'
     | '/auth'
-    | '/dashboard'
+    | '/listings'
     | '/profile'
     | '/auth/PasswordReset'
     | '/auth/login'
     | '/auth/register'
+    | '/listings/$listingId'
+    | '/listings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  DashboardRoute: typeof DashboardRoute
+  ListingsRouteRoute: typeof ListingsRouteRouteWithChildren
   ProfileRoute: typeof ProfileRoute
 }
 
@@ -127,11 +149,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
+    '/listings': {
+      id: '/listings'
+      path: '/listings'
+      fullPath: '/listings'
+      preLoaderRoute: typeof ListingsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -147,6 +169,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/listings/': {
+      id: '/listings/'
+      path: '/'
+      fullPath: '/listings/'
+      preLoaderRoute: typeof ListingsIndexRouteImport
+      parentRoute: typeof ListingsRouteRoute
+    }
+    '/listings/$listingId': {
+      id: '/listings/$listingId'
+      path: '/$listingId'
+      fullPath: '/listings/$listingId'
+      preLoaderRoute: typeof ListingsListingIdRouteImport
+      parentRoute: typeof ListingsRouteRoute
     }
     '/auth/register': {
       id: '/auth/register'
@@ -188,10 +224,24 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface ListingsRouteRouteChildren {
+  ListingsListingIdRoute: typeof ListingsListingIdRoute
+  ListingsIndexRoute: typeof ListingsIndexRoute
+}
+
+const ListingsRouteRouteChildren: ListingsRouteRouteChildren = {
+  ListingsListingIdRoute: ListingsListingIdRoute,
+  ListingsIndexRoute: ListingsIndexRoute,
+}
+
+const ListingsRouteRouteWithChildren = ListingsRouteRoute._addFileChildren(
+  ListingsRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
-  DashboardRoute: DashboardRoute,
+  ListingsRouteRoute: ListingsRouteRouteWithChildren,
   ProfileRoute: ProfileRoute,
 }
 export const routeTree = rootRouteImport
