@@ -6,11 +6,9 @@ const FilterBar = () => {
       className="
         w-full max-w-3xl mx-auto
         bg-white rounded-xl border border-gray-300 shadow-lg
-        
+        relative z-50
         flex items-center
         px-4 py-2
-        
-        /* Stack on mobile, row on desktop */
         flex-col sm:flex-row sm:justify-between
         gap-3 sm:gap-0
       "
@@ -29,7 +27,7 @@ const FilterBar = () => {
           <span className="text-xs text-gray-500 hidden sm:block">Where</span>
           <input
             placeholder="Search destinations"
-            className="focus:outline-none"
+            className="focus:outline-none placeholder:text-gray-400 text-sm text-black"
           />
         </label>
 
@@ -39,7 +37,10 @@ const FilterBar = () => {
         {/* When section */}
         <label className="flex flex-col sm:px-4">
           <span className="text-xs text-gray-500 hidden sm:block">When</span>
-          <input placeholder="Add dates" className="focus:outline-none" />
+          <input
+            placeholder="Add dates"
+            className="focus:outline-none placeholder:text-gray-400 text-sm text-black"
+          />
         </label>
 
         {/* Divider */}
@@ -48,17 +49,21 @@ const FilterBar = () => {
         {/* Who section */}
         <label className="flex flex-col sm:px-4">
           <span className="text-xs text-gray-500 hidden sm:block">Who</span>
-          <input placeholder="Add guests" className="focus:outline-none" />
+          <input
+            placeholder="Add guests"
+            className="focus:outline-none placeholder:text-gray-400 text-sm text-black"
+          />
         </label>
       </div>
 
       {/* Search btn*/}
       <button
         className="
-          bg-red-500 text-white rounded-full
+          bg-blue-400 text-white rounded-full
           h-10 w-10 flex items-center justify-center
-          hover:bg-red-600 transition
+          hover:bg-blue-500 transition
           self-end sm:self-auto
+          hover:cursor-pointer
         "
         aria-label="Search"
       >
