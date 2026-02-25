@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import TemplateCardImg from '/templateCardImg.jpg'
 import Aurora from '@/components/Aurora'
+import UserNavBar from '@/components/UserNavBar'
 import AmenitiesSection from '@/components/AmenitiesSection'
 import ListingItemHeader from '@/components/ListingItemHeader'
 import ListingGallerySection from '@/components/ListingGallerySection'
@@ -36,16 +37,19 @@ function Listing(): React.ReactElement {
   const { listingId } = Route.useParams()
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-black text-white">
+    <div className="relative min-h-screen overflow-hidden text-white">
       <div className="pointer-events-none absolute inset-0 z-0">
         <Aurora
           colorStops={['#0b0f2a', '#59f5ff', '#c7ff7a']}
-          amplitude={2}
+          amplitude={1.1}
           blend={0.6}
           speed={1}
         />
       </div>
-
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-white/5 via-white/25 to-white/50" />
+      <div className="relative z-20">
+        <UserNavBar />
+      </div>
       <div className="relative z-20 mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-10">
         {/* Host name and favorite btn  */}
         <ListingItemHeader hostName="Host" />

@@ -54,7 +54,7 @@ const ListingCard = ({
 
       {/* Content */}
       <div className="absolute inset-x-0 bottom-0 px-5 pt-16 pb-2">
-        <div className="flex flex-col gap-1 text-sm text-gray-600">
+        <div className="flex flex-col gap-1 text-sm text-gray-600 justify-center">
           <span className="flex items-center gap-2">
             <BedIcon size={15} />
             {beds} beds ·
