@@ -10,15 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ListingsRouteRouteImport } from './routes/listings/route'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ListingsIndexRouteImport } from './routes/listings/index'
+import { Route as ListingsListingIdRouteImport } from './routes/listings/$listingId'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
-import { Route as AuthForgotRouteImport } from './routes/auth/forgot'
+import { Route as AuthPasswordResetRouteImport } from './routes/auth/PasswordReset'
 
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListingsRouteRoute = ListingsRouteRouteImport.update({
+  id: '/listings',
+  path: '/listings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
@@ -31,6 +39,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ListingsIndexRoute = ListingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ListingsRouteRoute,
+} as any)
+const ListingsListingIdRoute = ListingsListingIdRouteImport.update({
+  id: '/$listingId',
+  path: '/$listingId',
+  getParentRoute: () => ListingsRouteRoute,
+} as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -41,67 +59,84 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-const AuthForgotRoute = AuthForgotRouteImport.update({
-  id: '/forgot',
-  path: '/forgot',
+const AuthPasswordResetRoute = AuthPasswordResetRouteImport.update({
+  id: '/PasswordReset',
+  path: '/PasswordReset',
   getParentRoute: () => AuthRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
+  '/listings': typeof ListingsRouteRouteWithChildren
   '/profile': typeof ProfileRoute
-  '/auth/forgot': typeof AuthForgotRoute
+  '/auth/PasswordReset': typeof AuthPasswordResetRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/listings/$listingId': typeof ListingsListingIdRoute
+  '/listings/': typeof ListingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/profile': typeof ProfileRoute
-  '/auth/forgot': typeof AuthForgotRoute
+  '/auth/PasswordReset': typeof AuthPasswordResetRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/listings/$listingId': typeof ListingsListingIdRoute
+  '/listings': typeof ListingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
+  '/listings': typeof ListingsRouteRouteWithChildren
   '/profile': typeof ProfileRoute
-  '/auth/forgot': typeof AuthForgotRoute
+  '/auth/PasswordReset': typeof AuthPasswordResetRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/listings/$listingId': typeof ListingsListingIdRoute
+  '/listings/': typeof ListingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auth'
+    | '/listings'
     | '/profile'
-    | '/auth/forgot'
+    | '/auth/PasswordReset'
     | '/auth/login'
     | '/auth/register'
+    | '/listings/$listingId'
+    | '/listings/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
     | '/profile'
-    | '/auth/forgot'
+    | '/auth/PasswordReset'
     | '/auth/login'
     | '/auth/register'
+    | '/listings/$listingId'
+    | '/listings'
   id:
     | '__root__'
     | '/'
     | '/auth'
+    | '/listings'
     | '/profile'
-    | '/auth/forgot'
+    | '/auth/PasswordReset'
     | '/auth/login'
     | '/auth/register'
+    | '/listings/$listingId'
+    | '/listings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  ListingsRouteRoute: typeof ListingsRouteRouteWithChildren
   ProfileRoute: typeof ProfileRoute
 }
 
@@ -112,6 +147,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/listings': {
+      id: '/listings'
+      path: '/listings'
+      fullPath: '/listings'
+      preLoaderRoute: typeof ListingsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -128,6 +170,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/listings/': {
+      id: '/listings/'
+      path: '/'
+      fullPath: '/listings/'
+      preLoaderRoute: typeof ListingsIndexRouteImport
+      parentRoute: typeof ListingsRouteRoute
+    }
+    '/listings/$listingId': {
+      id: '/listings/$listingId'
+      path: '/$listingId'
+      fullPath: '/listings/$listingId'
+      preLoaderRoute: typeof ListingsListingIdRouteImport
+      parentRoute: typeof ListingsRouteRoute
+    }
     '/auth/register': {
       id: '/auth/register'
       path: '/register'
@@ -142,24 +198,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
     }
-    '/auth/forgot': {
-      id: '/auth/forgot'
-      path: '/forgot'
-      fullPath: '/auth/forgot'
-      preLoaderRoute: typeof AuthForgotRouteImport
+    '/auth/PasswordReset': {
+      id: '/auth/PasswordReset'
+      path: '/PasswordReset'
+      fullPath: '/auth/PasswordReset'
+      preLoaderRoute: typeof AuthPasswordResetRouteImport
       parentRoute: typeof AuthRouteRoute
     }
   }
 }
 
 interface AuthRouteRouteChildren {
-  AuthForgotRoute: typeof AuthForgotRoute
+  AuthPasswordResetRoute: typeof AuthPasswordResetRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
-  AuthForgotRoute: AuthForgotRoute,
+  AuthPasswordResetRoute: AuthPasswordResetRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
 }
@@ -168,9 +224,24 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface ListingsRouteRouteChildren {
+  ListingsListingIdRoute: typeof ListingsListingIdRoute
+  ListingsIndexRoute: typeof ListingsIndexRoute
+}
+
+const ListingsRouteRouteChildren: ListingsRouteRouteChildren = {
+  ListingsListingIdRoute: ListingsListingIdRoute,
+  ListingsIndexRoute: ListingsIndexRoute,
+}
+
+const ListingsRouteRouteWithChildren = ListingsRouteRoute._addFileChildren(
+  ListingsRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
+  ListingsRouteRoute: ListingsRouteRouteWithChildren,
   ProfileRoute: ProfileRoute,
 }
 export const routeTree = rootRouteImport
