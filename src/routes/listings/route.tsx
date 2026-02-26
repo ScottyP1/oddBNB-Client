@@ -1,6 +1,7 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
 import Aurora from '@/components/Aurora'
 import UserNavBar from '@/components/UserNavBar'
+
 export const Route = createFileRoute('/listings')({
   component: ListingsLayout,
 })
@@ -16,7 +17,8 @@ function ListingsLayout() {
           speed={1}
         />
       </div>
-
+      {/* User nav */}
+      <UserNavBar />
       <Outlet />
     </div>
   )

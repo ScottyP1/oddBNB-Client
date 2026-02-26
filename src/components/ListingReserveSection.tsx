@@ -1,20 +1,28 @@
+import formatTime from '@/utils/formatTime'
+
 const ListingReserveSection = ({
-  dummyData,
+  pricePerNight,
+  capacity,
+  available,
+  checkInTime,
+  checkOutTime,
 }: {
-  dummyData: { pricePerNight: number; capacity: number }
+  pricePerNight: number
+  capacity: number
+  available: boolean
+  checkInTime: string
+  checkOutTime: string
 }) => {
   return (
     <div className="flex flex-col rounded-3xl border border-white/70 bg-black/30 p-6 shadow-[0_35px_90px_-70px_rgba(15,23,42,0.7)] backdrop-blur lg:flex-1">
       <div className="flex items-center justify-between">
         <div>
           <div className="text-sm uppercase tracking-[0.3em] ">Nightly</div>
-          <div className="text-3xl font-semibold ">
-            ${dummyData.pricePerNight}
-          </div>
+          <div className="text-3xl font-semibold ">${pricePerNight}</div>
         </div>
         <div className="text-right">
           <div className="text-sm font-semibold text-emerald-500">
-            Available
+            {available ? 'Available' : 'Booked'}
           </div>
           <div className="text-xs ">Flexible cancellation</div>
         </div>
@@ -22,13 +30,13 @@ const ListingReserveSection = ({
 
       <div className="mt-6 space-y-4">
         <div className="rounded-2xl border border-slate-100 bg-black/30 px-4 py-3 text-sm">
-          Check-in: Any time after 3:00 PM
+          Check-in: Any time after {formatTime(checkInTime)}
         </div>
         <div className="rounded-2xl border border-slate-100 bg-black/30 px-4 py-3 text-sm">
-          Checkout: 11:00 AM
+          Checkout: {formatTime(checkOutTime)}
         </div>
         <div className="rounded-2xl border border-slate-100 bg-black/30 px-4 py-3 text-sm">
-          Max guests: {dummyData.capacity}
+          Max guests: {capacity}
         </div>
       </div>
 
