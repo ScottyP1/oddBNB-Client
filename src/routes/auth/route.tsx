@@ -1,7 +1,8 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
-import VideoCard from '@/components/VideoCard'
-import LogoBanners from '@/components/LogoBanners'
-import dotGridImg from '/dotgrid.png'
+
+import Navbar from '@/components/Navbar'
+import InfoPill from '@/components/InfoPill'
+import SquircleShift from '@/components/SquircleShift'
 
 export const Route = createFileRoute('/auth')({
   component: AuthLayout,
@@ -9,12 +10,20 @@ export const Route = createFileRoute('/auth')({
 
 function AuthLayout() {
   return (
-    <div
-      className="relative h-screen w-full flex justify-center items-center
-                    bg-linear-to-tr from-[#D9E9FF] to-black to-80%"
-    >
-      {/* Side banners */}
-      <LogoBanners />
+    <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-white">
+      <div className="absolute inset-0 opacity-70">
+        <SquircleShift
+          width="100%"
+          height="100vh"
+          speed={0.2}
+          brightness={1.05}
+          colorLayers={3}
+          lightBackground="#050505"
+          darkBackground="#050505"
+          colorTint="#03a9fc"
+        />
+      </div>
+      <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-black/90" />
 
       {/* Decorations */}
       <img
@@ -28,10 +37,13 @@ function AuthLayout() {
         width={500}
       />
 
-      {/* Card */}
-      <VideoCard>
-        <Outlet />
-      </VideoCard>
+          <div className="flex justify-center lg:justify-end">
+            <div className="w-full max-w-md rounded-3xl border border-white/15 bg-black/60 p-8 shadow-2xl backdrop-blur">
+              <Outlet />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
