@@ -1,31 +1,41 @@
 import { BathIcon, BedIcon, MountainIcon, Star } from 'lucide-react'
 
 const ListingInformation = ({
-  dummyData,
+  listingData,
 }: {
-  dummyData: {
+  listingData: {
     location: string
     title: string
     description: string
     beds: number
     baths: number
     squareFeet: number
-    reviews: number
+    rating: number
+    reviewCount: number
   }
 }) => {
   const quickFacts = [
-    { icon: BedIcon, label: `${dummyData.beds} beds` },
-    { icon: BathIcon, label: `${dummyData.baths} baths` },
-    { icon: MountainIcon, label: `${dummyData.squareFeet} sq ft` },
-    { icon: Star, label: `${dummyData.reviews} rating` },
+    { icon: BedIcon, label: `${listingData.beds} beds` },
+    { icon: BathIcon, label: `${listingData.baths} baths` },
+    { icon: MountainIcon, label: `${listingData.squareFeet} sq ft` },
+    {
+      icon: Star,
+      label: `${listingData.rating === null ? 'No ratings' : `${listingData.rating} (${listingData.reviewCount})`}`,
+    },
   ]
+
+  console.log(listingData)
   return (
     <div className="rounded-3xl border border-white/70 bg-black/30 p-6 shadow-[0_30px_80px_-60px_rgba(15,23,42,0.6)] backdrop-blur">
-      <h1 className="text-3xl font-semibold  sm:text-4xl">{dummyData.title}</h1>
+      <h1 className="text-3xl font-semibold  sm:text-4xl">
+        {listingData.title}
+      </h1>
       <p className="mt-2 text-sm uppercase tracking-[0.2em]">
-        {dummyData.location}
+        {listingData.location}
       </p>
-      <p className="mt-4 text-base leading-relaxed">{dummyData.description}</p>
+      <p className="mt-4 text-base leading-relaxed">
+        {listingData.description}
+      </p>
       <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
         {quickFacts.map((fact) => (
           <div

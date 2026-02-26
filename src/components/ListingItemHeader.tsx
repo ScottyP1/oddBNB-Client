@@ -1,10 +1,16 @@
 import { Heart } from 'lucide-react'
 
-const ListingItemHeader = ({ hostName }: { hostName: string }) => {
+type hostProps = {
+  id: number
+  firstName: string
+  lastName: string
+}
+
+const ListingItemHeader = ({ host }: { host: hostProps }) => {
   return (
     <div className="mb-6 flex items-center justify-between">
       <div className="text-sm uppercase tracking-[0.25em]">
-        Host: {hostName}
+        Host: {`${host.firstName} ${host.lastName}`}
       </div>
       <button
         type="button"

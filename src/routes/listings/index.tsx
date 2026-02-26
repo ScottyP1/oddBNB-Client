@@ -1,247 +1,28 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { useListings } from '@/features/listings/useListings'
 
 import ListingCard from '@/components/ListingCard'
-
-import TemplateCardImg from '/templateCardImg.jpg'
-import UserNavBar from '@/components/UserNavBar'
 
 export const Route = createFileRoute('/listings/')({
   component: ListingsPage,
 })
 
-const DummyData = [
-  {
-    id: 1,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 2,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 3,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 4,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 5,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 6,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 7,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 8,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 9,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 10,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 11,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 12,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 13,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-  {
-    id: 14,
-    title: 'Home in Space',
-    description: 'description',
-    pricePerNight: 150,
-    location: 'location',
-    lat: 120.0,
-    lon: 120.0,
-    beds: 4,
-    baths: 3,
-    squareFeet: 1800,
-    capacity: 8,
-    available: true,
-    images: [TemplateCardImg],
-    reviews: 4.8,
-  },
-]
-
+type Listing = {
+  id: number
+  title: string
+  pricePerNight: number
+  beds: number
+  baths: number
+  capacity: number
+  reviewCount: number
+  rating: number | null
+  thumbnailUrl?: string
+}
 function ListingsPage() {
+  const { data: listings = [] } = useListings()
+
   return (
     <div className="relative min-h-screen w-full">
-      {/* User nav */}
-      <UserNavBar />
-
       <section
         className="
           px-4 py-6
@@ -261,7 +42,7 @@ function ListingsPage() {
             gap-6 sm:gap-8
           "
         >
-          {DummyData.map((item) => (
+          {listings.map((item: Listing) => (
             <Link
               to="/listings/$listingId"
               params={{ listingId: String(item.id) }}
@@ -273,8 +54,8 @@ function ListingsPage() {
                 beds={item.beds}
                 baths={item.baths}
                 capacity={item.capacity}
-                images={item.images}
-                reviews={item.reviews}
+                reviews={item.reviewCount}
+                images={item.thumbnailUrl ? [item.thumbnailUrl] : []}
               />
             </Link>
           ))}
