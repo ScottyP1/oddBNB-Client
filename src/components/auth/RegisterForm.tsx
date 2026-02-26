@@ -1,50 +1,58 @@
-import CustomInput from '../auth/CustomInput'
-import ClickHereComponent from '../ClickHereComponent'
+import { Link } from '@tanstack/react-router'
+import AuthInput from './AuthInput'
 
 const RegisterForm = () => {
   return (
-    <div className="flex flex-col gap-8 justify-center items-center bg-black/50 text-white p-12 rounded-lg ">
-      <div className="flex flex-col justify-center items-center gap-2">
-        <h1 className="text-3xl font-bold">Sign up</h1>
-        <span className="text-sm">
-          Enter your information below to continue
-        </span>
+    <div className="w-full max-w-md space-y-8">
+      <div className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/60">
+          Join oddBNB
+        </p>
+        <h1 className="text-3xl font-semibold text-white">
+          Create your account
+        </h1>
+        <p className="text-sm text-white/60">
+          Save favorites, message hosts, and book in minutes.
+        </p>
       </div>
 
-      <form>
-        <div className="flex flex-col gap-4 w-sm">
-          <div className="flex flex-col gap-4">
-            <CustomInput
-              label="Email"
-              name="email"
-              type="email"
-              autoFocus={true}
-              placeholder="you@email.com"
-            />
-            <CustomInput
-              label="Password"
-              name="password"
-              type="password"
-              placeholder="***********"
-            />
-            <CustomInput
-              label="Confirm Password"
-              name="confirm_password"
-              type="password"
-              placeholder="***********"
-            />
-          </div>
-          <button className="py-2 px-4 bg-linear-to-tr from-blue-500 to-white w-full rounded-lg text-xl hover:cursor-pointer hover:outline-1 font-bold mt-6">
-            Register
-          </button>
-        </div>
-        <div className="flex flex-col justify-center items-center">
-          <ClickHereComponent
-            label="Already have an Account?"
-            href="/auth/login"
+      <form className="space-y-6">
+        <div className="space-y-4">
+          <AuthInput
+            label="Full name"
+            name="name"
+            type="text"
+            placeholder="Avery Walker"
+            autoFocus
+          />
+          <AuthInput
+            label="Email"
+            name="email"
+            type="email"
+            placeholder="you@email.com"
+          />
+          <AuthInput
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="Create a password"
           />
         </div>
+
+        <button className="w-full rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-neutral-900 transition hover:bg-white/90">
+          Create account
+        </button>
       </form>
+
+      <p className="text-sm text-white/60">
+        Already have an account?{' '}
+        <Link
+          to="/auth/login"
+          className="font-semibold text-white hover:text-white/90"
+        >
+          Sign in
+        </Link>
+      </p>
     </div>
   )
 }

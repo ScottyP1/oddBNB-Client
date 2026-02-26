@@ -17,6 +17,7 @@ import { Route as ListingsIndexRouteImport } from './routes/listings/index'
 import { Route as ListingsListingIdRouteImport } from './routes/listings/$listingId'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as AuthForgotRouteImport } from './routes/auth/forgot'
 import { Route as AuthPasswordResetRouteImport } from './routes/auth/PasswordReset'
 
 const ProfileRoute = ProfileRouteImport.update({
@@ -59,6 +60,11 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const AuthForgotRoute = AuthForgotRouteImport.update({
+  id: '/forgot',
+  path: '/forgot',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
 const AuthPasswordResetRoute = AuthPasswordResetRouteImport.update({
   id: '/PasswordReset',
   path: '/PasswordReset',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/listings': typeof ListingsRouteRouteWithChildren
   '/profile': typeof ProfileRoute
   '/auth/PasswordReset': typeof AuthPasswordResetRoute
+  '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/listings/$listingId': typeof ListingsListingIdRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRouteRouteWithChildren
   '/profile': typeof ProfileRoute
   '/auth/PasswordReset': typeof AuthPasswordResetRoute
+  '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/listings/$listingId': typeof ListingsListingIdRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/listings': typeof ListingsRouteRouteWithChildren
   '/profile': typeof ProfileRoute
   '/auth/PasswordReset': typeof AuthPasswordResetRoute
+  '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/listings/$listingId': typeof ListingsListingIdRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/listings'
     | '/profile'
     | '/auth/PasswordReset'
+    | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
     | '/listings/$listingId'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/profile'
     | '/auth/PasswordReset'
+    | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
     | '/listings/$listingId'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/listings'
     | '/profile'
     | '/auth/PasswordReset'
+    | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
     | '/listings/$listingId'
@@ -198,6 +210,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/auth/forgot': {
+      id: '/auth/forgot'
+      path: '/forgot'
+      fullPath: '/auth/forgot'
+      preLoaderRoute: typeof AuthForgotRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
     '/auth/PasswordReset': {
       id: '/auth/PasswordReset'
       path: '/PasswordReset'
@@ -210,12 +229,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthRouteRouteChildren {
   AuthPasswordResetRoute: typeof AuthPasswordResetRoute
+  AuthForgotRoute: typeof AuthForgotRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthPasswordResetRoute: AuthPasswordResetRoute,
+  AuthForgotRoute: AuthForgotRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
 }

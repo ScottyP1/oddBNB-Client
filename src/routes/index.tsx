@@ -1,37 +1,28 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import Navbar from '@/components/Navbar'
+import SquircleShift from '@/components/SquircleShift'
 
 export const Route = createFileRoute('/')({ component: App })
 
 function App() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-white">
-      <div className="absolute inset-0 opacity-70"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90" />
+      <div className="absolute inset-0 opacity-70">
+        <SquircleShift
+          width="100%"
+          height="100vh"
+          speed={0.2}
+          brightness={1.05}
+          colorLayers={3}
+          lightBackground="#050505"
+          darkBackground="#050505"
+          colorTint="#03a9fc"
+        />
+      </div>
+      <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-black/90" />
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-16 pt-10">
-        <header className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-9 w-9 rounded-2xl bg-white/10 ring-1 ring-white/20" />
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">
-                oddbnb
-              </p>
-              <p className="text-sm font-semibold">Stay different</p>
-            </div>
-          </div>
-          <div className="hidden items-center gap-6 text-sm text-white/70 md:flex">
-            <span>Stays</span>
-            <span>Experiences</span>
-            <span>Host</span>
-            <span>Help</span>
-          </div>
-          <Link
-            to="/auth/login"
-            className="rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white/90 transition hover:bg-white/10"
-          >
-            Sign in
-          </Link>
-        </header>
+        <Navbar />
 
         <section className="mt-16 grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="space-y-6">

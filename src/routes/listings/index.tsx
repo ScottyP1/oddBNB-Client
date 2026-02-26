@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useListings } from '@/features/listings/useListings'
 
-import ListingCard from '@/components/ListingCard'
+import ListingCard from '@/components/listings/ListingCard'
 
 export const Route = createFileRoute('/listings/')({
   component: ListingsPage,
