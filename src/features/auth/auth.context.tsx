@@ -7,7 +7,7 @@ type AuthState = {
 
 const AuthContext = createContext<AuthState | null>(null)
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children }: { children: React.ReactElement }) {
   const [token, setToken] = useState<string | null>(null)
 
   return (

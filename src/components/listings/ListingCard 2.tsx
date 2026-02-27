@@ -66,7 +66,7 @@ const ListingCard = ({
         </div>
 
         <div className="flex flex-col mt-3">
-          <h3 className="font-semibold text-lg text-black">{title}</h3>
+          <h3 className="font-semibold text-lg">{title}</h3>
 
           <div className="flex items-center justify-between">
             <p className="text-gray-500 text-sm">${pricePerNight} · night</p>

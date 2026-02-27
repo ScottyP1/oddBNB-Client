@@ -1,12 +1,7 @@
 import {
   AlarmSmokeIcon,
-  BathIcon,
-  BedIcon,
   CookingPotIcon,
   DogIcon,
-  Heart,
-  MountainIcon,
-  Star,
   TvIcon,
   WashingMachineIcon,
   WifiIcon,

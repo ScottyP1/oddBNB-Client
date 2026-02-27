@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import type React from 'react'
 
-import AmenitiesSection from '@/components/AmenitiesSection'
+import AmenitiesSection from '@/components/amenities/AmenitiesSection'
 import ListingItemHeader from '@/components/listings/ListingItemHeader'
 import ListingGallerySection from '@/components/listings/ListingGallerySection'
 import ListingInformation from '@/components/listings/ListingInformation'
@@ -25,8 +25,8 @@ function Listing(): React.ReactElement {
   console.log(listing)
   return (
     <div className="relative min-h-screen overflow-hidden text-white">
-      <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-b from-white/5 via-white/25 to-white/50" />
-      <div className="relative z-20 mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-10">
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/20 via-black/10 to-black/40" />
+      <div className="relative z-20 mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-10">
         {/* Host name and favorite btn  */}
         <ListingItemHeader host={listing.host} />
 

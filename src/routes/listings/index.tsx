@@ -33,7 +33,7 @@ function ListingsPage() {
         {/* Listings */}
         <div
           className="
-            mx-auto w-full
+            mx-auto w-full 
             grid grid-cols-1
             sm:grid-cols-2
             lg:grid-cols-4

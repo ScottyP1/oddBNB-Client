@@ -5,7 +5,7 @@ const FilterBar = () => {
     <div
       className="
         w-full max-w-3xl mx-auto
-        bg-white rounded-xl border border-gray-300 shadow-lg
+        bg-black/50 rounded-2xl border border-white/15 shadow-2xl backdrop-blur
         relative z-50
         flex items-center
         px-4 py-2
@@ -24,34 +24,34 @@ const FilterBar = () => {
       >
         {/* Where section */}
         <label className="flex flex-col sm:px-4">
-          <span className="text-xs text-gray-500 hidden sm:block">Where</span>
+          <span className="text-xs text-white/50 hidden sm:block">Where</span>
           <input
             placeholder="Search destinations"
-            className="focus:outline-none placeholder:text-gray-400 text-sm text-black"
+            className="focus:outline-none placeholder:text-white/40 text-sm text-white bg-transparent"
           />
         </label>
 
         {/* Divider */}
-        <div className="hidden sm:block bg-gray-300 w-px h-8" />
+        <div className="hidden sm:block bg-white/15 w-px h-8" />
 
         {/* When section */}
         <label className="flex flex-col sm:px-4">
-          <span className="text-xs text-gray-500 hidden sm:block">When</span>
+          <span className="text-xs text-white/50 hidden sm:block">When</span>
           <input
             placeholder="Add dates"
-            className="focus:outline-none placeholder:text-gray-400 text-sm text-black"
+            className="focus:outline-none placeholder:text-white/40 text-sm text-white bg-transparent"
           />
         </label>
 
         {/* Divider */}
-        <div className="hidden sm:block bg-gray-300 w-px h-8" />
+        <div className="hidden sm:block bg-white/15 w-px h-8" />
 
         {/* Who section */}
         <label className="flex flex-col sm:px-4">
-          <span className="text-xs text-gray-500 hidden sm:block">Who</span>
+          <span className="text-xs text-white/50 hidden sm:block">Who</span>
           <input
             placeholder="Add guests"
-            className="focus:outline-none placeholder:text-gray-400 text-sm text-black"
+            className="focus:outline-none placeholder:text-white/40 text-sm text-white bg-transparent"
           />
         </label>
       </div>
@@ -59,9 +59,9 @@ const FilterBar = () => {
       {/* Search btn*/}
       <button
         className="
-          bg-blue-400 text-white rounded-full
+          bg-white text-neutral-900 rounded-full
           h-10 w-10 flex items-center justify-center
-          hover:bg-blue-500 transition
+          hover:bg-white/90 transition
           self-end sm:self-auto
           hover:cursor-pointer
         "
