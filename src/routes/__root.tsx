@@ -7,6 +7,9 @@ import { AuthProvider } from '@/features/auth/auth.context'
 import { queryClient } from '@/router'
 import { QueryClientProvider } from '@tanstack/react-query'
 
+import { Outlet } from '@tanstack/react-router'
+import { Toaster } from 'react-hot-toast'
+
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -39,6 +42,18 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+            toastOptions={{
+              duration: 3000,
+              style: {
+                background: '#111',
+                color: '#fff',
+                borderRadius: '14px',
+              },
+            }}
+          />
           <AuthProvider>{children}</AuthProvider>
         </QueryClientProvider>
         <TanStackDevtools

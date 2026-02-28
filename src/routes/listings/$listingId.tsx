@@ -22,7 +22,7 @@ function Listing(): React.ReactElement {
   } = useListing(Route.useParams().listingId)
 
   if (isLoading) return <h1>Loading</h1>
-  console.log(listing)
+
   return (
     <div className="relative min-h-screen overflow-hidden text-white">
       <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/20 via-black/10 to-black/40" />
