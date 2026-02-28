@@ -8,7 +8,7 @@ export function useMe() {
   return useQuery({
     queryKey: ['me'],
     queryFn: async () => {
-      const res = await getMe(token)
+      const res = await getMe()
       return res.data
     },
     enabled: Boolean(token),

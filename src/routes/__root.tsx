@@ -6,8 +6,6 @@ import appCss from '../styles.css?url'
 import { AuthProvider } from '@/features/auth/auth.context'
 import { queryClient } from '@/router'
 import { QueryClientProvider } from '@tanstack/react-query'
-
-import { Outlet } from '@tanstack/react-router'
 import { Toaster } from 'react-hot-toast'
 
 export const Route = createRootRoute({
