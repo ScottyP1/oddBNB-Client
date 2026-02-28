@@ -1,20 +1,38 @@
 import { Link } from '@tanstack/react-router'
-import AuthInput from './AuthInput'
 
-const LoginForm = () => {
+import { useState } from 'react'
+import AuthInput from './AuthInput'
+import FormHeader from './FormHeader'
+
+export type FormState = {
+  email: string
+  password: string
+}
+
+type LoginFormProps = {
+  handleSubmit: (data: FormState) => void
+  isLoading?: boolean
+}
+
+const LoginForm = ({ handleSubmit, isLoading }: LoginFormProps) => {
+  const [input, setInput] = useState<FormState>({
+    email: '',
+    password: '',
+  })
+
+  const onSubmit = (e: React.SubmitEvent) => {
+    e.preventDefault()
+    handleSubmit(input)
+  }
+
   return (
     <div className="w-full max-w-md space-y-8">
-      <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/60">
-          Welcome back
-        </p>
-        <h1 className="text-3xl font-semibold text-white">Sign in to oddBNB</h1>
-        <p className="text-sm text-white/60">
-          Continue planning your next unforgettable stay.
-        </p>
-      </div>
-
-      <form className="space-y-6">
+      <FormHeader
+        label=" Welcome back"
+        title="Sign in to oddBNB"
+        subLabel="Continue planning your next unforgettable stay."
+      />
+      <form className="space-y-6" onSubmit={onSubmit}>
         <div className="space-y-4">
           <AuthInput
             label="Email"
@@ -22,12 +40,26 @@ const LoginForm = () => {
             type="email"
             placeholder="you@email.com"
             autoFocus
+            value={input.email}
+            onChange={(evt) =>
+              setInput((prev) => ({
+                ...prev,
+                [evt.target.name]: evt.target.value,
+              }))
+            }
           />
           <AuthInput
             label="Password"
             name="password"
             type="password"
             placeholder="••••••••"
+            value={input.password}
+            onChange={(evt) =>
+              setInput((prev) => ({
+                ...prev,
+                [evt.target.name]: evt.target.value,
+              }))
+            }
           />
         </div>
 
@@ -48,8 +80,11 @@ const LoginForm = () => {
           </Link>
         </div>
 
-        <button className="w-full rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-neutral-900 transition hover:bg-white/90">
-          Sign in
+        <button
+          disabled={isLoading}
+          className="w-full rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-neutral-900 transition hover:bg-white/90"
+        >
+          {isLoading ? 'Logging in...' : 'Login'}
         </button>
       </form>
 

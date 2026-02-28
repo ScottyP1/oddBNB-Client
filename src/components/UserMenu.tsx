@@ -8,7 +8,8 @@ const UserMenu = () => {
   const { data: user } = useMe()
   const [open, setOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
-  const canAddListing = user?.role === 'ADMIN' || user?.role === 'HOST'
+  const isAdmin = user?.role === 'ADMIN'
+  const isHost = user?.role === 'HOST'
 
   useEffect(() => {
     if (!open) return
@@ -48,12 +49,21 @@ const UserMenu = () => {
           >
             Trips & stays
           </Link>
-          {canAddListing && (
+          {isAdmin ||
+            (isHost && (
+              <Link
+                to="/listings/new"
+                className="block rounded-xl px-3 py-2 text-white/80 transition hover:bg-white/10 hover:text-white"
+              >
+                Add listing
+              </Link>
+            ))}
+          {isAdmin && (
             <Link
-              to="/listings/new"
+              to="/users"
               className="block rounded-xl px-3 py-2 text-white/80 transition hover:bg-white/10 hover:text-white"
             >
-              Add listing
+              Users
             </Link>
           )}
           <button

@@ -7,7 +7,7 @@ export const Route = createFileRoute('/')({ component: App })
 function App() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-white">
-      <div className="absolute inset-0 opacity-70">
+      <div className="fixed inset-0 opacity-70">
         <SquircleShift
           width="100%"
           height="100vh"

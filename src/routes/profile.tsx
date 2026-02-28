@@ -9,7 +9,7 @@ export const Route = createFileRoute('/profile')({
 
 function ProfilePage() {
   const { data: user } = useMe()
-  console.log(user)
+
   const initials = user?.firstName.slice(0, 1).toUpperCase()
 
   return (
@@ -26,7 +26,7 @@ function ProfilePage() {
           colorTint="#03a9fc"
         />
       </div>
-      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-black/70 via-black/40 to-black/90" />
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-10 px-6 py-10">
         <header className="flex flex-wrap items-center justify-between gap-4">
@@ -65,6 +65,8 @@ function ProfilePage() {
             <div className="flex flex-wrap gap-3 text-xs text-white/60">
               <InfoPill label="Verified account" />
               <InfoPill label="Since 2024" />
+              {user?.role === 'ADMIN' && <InfoPill label="Admin" admin />}
+              {user?.role === 'HOST' && <InfoPill label="Host" host />}
             </div>
 
             <div className="grid grid-cols-2 gap-4 text-sm">
