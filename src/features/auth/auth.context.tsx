@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 
 type AuthState = {
   token: string | null
@@ -10,6 +11,7 @@ const AuthContext = createContext<AuthState | null>(null)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setTokenState] = useState<string | null>(null)
+  const queryClient = useQueryClient()
 
   useEffect(() => {
     const stored = localStorage.getItem('token')
@@ -25,7 +27,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setTokenState(t)
   }
 
-  const logout = () => setToken(null)
+  const logout = () => {
+    setToken(null)
+    queryClient.removeQueries({ queryKey: ['me'] })
+  }
 
   return (
     <AuthContext.Provider value={{ token, setToken, logout }}>

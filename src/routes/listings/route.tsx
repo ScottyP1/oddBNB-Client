@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
 import SquircleShift from '@/components/SquircleShift'
-import UserNavBar from '@/components/UserNavBar'
+import Navbar from '@/components/Navbar'
 
 export const Route = createFileRoute('/listings')({
   component: ListingsLayout,
@@ -23,7 +23,7 @@ function ListingsLayout() {
       </div>
       <div className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-black/70 via-black/40 to-black/90" />
       {/* User nav */}
-      <UserNavBar />
+      <Navbar showFilterBar />
       <div className="relative z-10">
         <Outlet />
       </div>
