@@ -7,26 +7,20 @@ import UserMenu from './UserMenu'
 
 type NavbarProps = {
   hideAuthActions?: boolean
-  showFilterBar?: boolean
+  variant?: 'home' | 'listings' | 'minimal'
 }
 
 const Navbar = ({
   hideAuthActions = false,
-  showFilterBar = false,
+  variant = 'minimal',
 }: NavbarProps) => {
   const { token } = useAuth()
+  const showFilterBar = variant === 'listings'
+  const showNavLinks = variant === 'home'
 
   return (
-    <div
-      className={`${
-        showFilterBar ? 'sticky top-0 z-50' : ''
-      } text-white`}
-    >
-      <div
-        className={`${
-          showFilterBar ? 'backdrop-blur-md bg-black/40 border-b border-white/10' : ''
-        }`}
-      >
+    <div className="sticky top-0 z-50 text-white">
+      <div className="backdrop-blur-md bg-black/40 border-b border-white/10">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-4 sm:px-6 lg:px-10">
           <Link to="/listings" className="inline-flex items-center gap-3">
             <div className="h-9 w-9 rounded-2xl bg-white/10 ring-1 ring-white/20" />
@@ -38,11 +32,12 @@ const Navbar = ({
             </div>
           </Link>
 
-          {showFilterBar ? (
+          {showFilterBar && (
             <div className="hidden flex-1 md:block">
               <FilterBar />
             </div>
-          ) : (
+          )}
+          {showNavLinks && (
             <nav className="hidden items-center gap-6 text-sm text-white/70 md:flex">
               <span>Stays</span>
               <span>Experiences</span>
@@ -51,7 +46,7 @@ const Navbar = ({
             </nav>
           )}
 
-          {!hideAuthActions && !token && (
+          {!hideAuthActions && !token && showNavLinks && (
             <div className="ml-auto shrink-0">
               <AuthBtnGroup />
             </div>

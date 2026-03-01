@@ -1,5 +1,4 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import SquircleShift from '@/components/SquircleShift'
 import InfoPill from '@/components/InfoPill'
 import { useMe } from '@/features/auth/useAuth'
 
@@ -13,22 +12,7 @@ function ProfilePage() {
   const initials = user?.firstName.slice(0, 1).toUpperCase()
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-white">
-      <div className="pointer-events-none fixed inset-0 z-0 opacity-70">
-        <SquircleShift
-          width="100%"
-          height="100vh"
-          speed={0.2}
-          brightness={1.05}
-          colorLayers={3}
-          lightBackground="#050505"
-          darkBackground="#050505"
-          colorTint="#03a9fc"
-        />
-      </div>
-      <div className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-black/70 via-black/40 to-black/90" />
-
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-10 px-6 py-10">
+    <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-10 px-6 py-10 text-white">
         <header className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.4em] text-white/60">
@@ -129,7 +113,6 @@ function ProfilePage() {
             </div>
           </div>
         </section>
-      </div>
     </div>
   )
 }

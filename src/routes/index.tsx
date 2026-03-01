@@ -1,28 +1,10 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import Navbar from '@/components/Navbar'
-import SquircleShift from '@/components/SquircleShift'
 
 export const Route = createFileRoute('/')({ component: App })
 
 function App() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-white">
-      <div className="fixed inset-0 opacity-70">
-        <SquircleShift
-          width="100%"
-          height="100vh"
-          speed={0.2}
-          brightness={1.05}
-          colorLayers={3}
-          lightBackground="#050505"
-          darkBackground="#050505"
-          colorTint="#03a9fc"
-        />
-      </div>
-      <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-black/90" />
-
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-16 pt-10">
-        <Navbar />
+    <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-16 pt-10">
 
         <section className="mt-16 grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="space-y-6">
@@ -154,7 +136,6 @@ function App() {
             </div>
           ))}
         </section>
-      </div>
     </div>
   )
 }

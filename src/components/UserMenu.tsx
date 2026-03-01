@@ -39,12 +39,14 @@ const UserMenu = () => {
         <div className="absolute right-0 mt-3 w-48 rounded-2xl border border-white/15 bg-black/80 p-2 text-sm text-white shadow-2xl backdrop-blur">
           <Link
             to="/profile"
+            onClick={() => setOpen(false)}
             className="block rounded-xl px-3 py-2 text-white/80 transition hover:bg-white/10 hover:text-white"
           >
             Profile
           </Link>
           <Link
             to="/profile"
+            onClick={() => setOpen(false)}
             className="block rounded-xl px-3 py-2 text-white/80 transition hover:bg-white/10 hover:text-white"
           >
             Trips & stays
@@ -53,6 +55,7 @@ const UserMenu = () => {
             (isHost && (
               <Link
                 to="/listings/new"
+                onClick={() => setOpen(false)}
                 className="block rounded-xl px-3 py-2 text-white/80 transition hover:bg-white/10 hover:text-white"
               >
                 Add listing
@@ -61,6 +64,7 @@ const UserMenu = () => {
           {isAdmin && (
             <Link
               to="/users"
+              onClick={() => setOpen(false)}
               className="block rounded-xl px-3 py-2 text-white/80 transition hover:bg-white/10 hover:text-white"
             >
               Users
@@ -68,7 +72,10 @@ const UserMenu = () => {
           )}
           <button
             type="button"
-            onClick={logout}
+            onClick={() => {
+              setOpen(false)
+              logout()
+            }}
             className="mt-1 w-full rounded-xl px-3 py-2 text-left text-white/80 transition hover:bg-white/10 hover:text-white"
           >
             Log out
