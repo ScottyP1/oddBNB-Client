@@ -1,8 +1,11 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+
 import InfoPill from '@/components/InfoPill'
 import { useMe } from '@/features/auth/useAuth'
 import PageContainer from '@/components/PageContainer'
 import StatCard from '@/components/admin/StatCard'
+
+import FavoritesSection from '@/components/profile/FavoritesSection'
 
 export const Route = createFileRoute('/profile')({
   component: ProfilePage,
@@ -88,26 +91,7 @@ function ProfilePage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/15 bg-black/60 p-6 shadow-2xl backdrop-blur">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold">Saved collections</p>
-              <button className="text-xs font-semibold text-white/70 transition hover:text-white">
-                Manage
-              </button>
-            </div>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {['Desert domes', 'Lakeside', 'Nordic cabins', 'Treehouses'].map(
-                (item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm"
-                  >
-                    {item}
-                  </div>
-                ),
-              )}
-            </div>
-          </div>
+          <FavoritesSection />
         </div>
       </section>
     </PageContainer>
