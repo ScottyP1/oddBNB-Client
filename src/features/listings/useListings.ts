@@ -14,11 +14,12 @@ export function useListings() {
 
 export function useListing(id: string) {
   return useQuery({
-    queryKey: ['listing'],
+    queryKey: ['listing', id],
     queryFn: async () => {
       const res = await getListing(id)
       return res.data
     },
     staleTime: 1000 * 60 * 5,
+    enabled: !!id,
   })
 }
