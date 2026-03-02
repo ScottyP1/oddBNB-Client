@@ -1,28 +1,14 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import Navbar from '@/components/Navbar'
-import SquircleShift from '@/components/SquircleShift'
+
+import cliffSideImg from '/listings/cliffSide.png'
+import lakeCabinImg from '/listings/lakeCabin.png'
+import tentImg from '/listings/tent.png'
 
 export const Route = createFileRoute('/')({ component: App })
 
 function App() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-white">
-      <div className="fixed inset-0 opacity-70">
-        <SquircleShift
-          width="100%"
-          height="100vh"
-          speed={0.2}
-          brightness={1.05}
-          colorLayers={3}
-          lightBackground="#050505"
-          darkBackground="#050505"
-          colorTint="#03a9fc"
-        />
-      </div>
-      <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-black/90" />
-
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-16 pt-10">
-        <Navbar />
+      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-16 pt-10 text-white">
 
         <section className="mt-16 grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="space-y-6">
@@ -85,23 +71,26 @@ function App() {
                 title: 'Cliffside A-Frame',
                 location: 'Big Sur, CA',
                 price: '$320/night',
+                image: cliffSideImg,
               },
               {
                 title: 'Glass Dome',
                 location: 'Joshua Tree, CA',
                 price: '$280/night',
+                image: tentImg,
               },
               {
                 title: 'Floating Cabin',
                 location: 'Lake Louise, CA',
                 price: '$240/night',
+                image: lakeCabinImg,
               },
             ].map((stay) => (
               <div
                 key={stay.title}
                 className="rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur"
               >
-                <div className="h-36 rounded-2xl bg-gradient-to-br from-sky-500/40 via-emerald-400/20 to-fuchsia-500/30" />
+                <img className="h-36 rounded-2xl w-full" src={stay.image} />
                 <div className="mt-4 flex items-center justify-between">
                   <div>
                     <p className="text-sm font-semibold">{stay.title}</p>
@@ -155,6 +144,5 @@ function App() {
           ))}
         </section>
       </div>
-    </div>
   )
 }
