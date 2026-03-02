@@ -1,5 +1,6 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
 import InfoPill from '@/components/InfoPill'
+import PageContainer from '@/components/PageContainer'
 
 export const Route = createFileRoute('/auth')({
   component: AuthLayout,
@@ -7,7 +8,7 @@ export const Route = createFileRoute('/auth')({
 
 function AuthLayout() {
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-10 px-6 py-10 text-white">
+    <PageContainer className="gap-10">
       <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="space-y-8">
             <div className="space-y-4">
@@ -35,6 +36,6 @@ function AuthLayout() {
             </div>
           </div>
       </div>
-    </div>
+    </PageContainer>
   )
 }
