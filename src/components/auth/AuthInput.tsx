@@ -1,4 +1,4 @@
-import type { ChangeEvent, EventHandler } from 'react'
+import type { ChangeEvent } from 'react'
 
 type AuthInputProps = {
   label: string
