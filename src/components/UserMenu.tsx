@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from '@tanstack/react-router'
+import { Link, useRouterState } from '@tanstack/react-router'
 import { useAuth } from '@/features/auth/auth.context'
 import { useMe } from '@/features/auth/useAuth'
 
@@ -10,6 +10,9 @@ const UserMenu = () => {
   const menuRef = useRef<HTMLDivElement>(null)
   const isAdmin = user?.role === 'ADMIN'
   const isHost = user?.role === 'HOST'
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  })
 
   useEffect(() => {
     if (!open) return
@@ -22,6 +25,10 @@ const UserMenu = () => {
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
   }, [open])
+
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
 
   return (
     <div className="relative" ref={menuRef}>
@@ -36,7 +43,7 @@ const UserMenu = () => {
         U
       </button>
       {open && (
-        <div className="absolute right-0 mt-3 w-48 rounded-2xl border border-white/15 bg-black/80 p-2 text-sm text-white shadow-2xl backdrop-blur">
+        <div className="absolute right-0 z-50 mt-3 w-48 rounded-2xl border border-white/15 bg-black/80 p-2 text-sm text-white shadow-2xl backdrop-blur">
           <Link
             to="/profile"
             className="block rounded-xl px-3 py-2 text-white/80 transition hover:bg-white/10 hover:text-white"
