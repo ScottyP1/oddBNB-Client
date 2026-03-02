@@ -3,12 +3,13 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import cliffSideImg from '/listings/cliffSide.png'
 import lakeCabinImg from '/listings/lakeCabin.png'
 import tentImg from '/listings/tent.png'
+import PageContainer from '@/components/PageContainer'
 
 export const Route = createFileRoute('/')({ component: App })
 
 function App() {
   return (
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-16 pt-10 text-white">
+      <PageContainer className="pb-16 pt-10">
 
         <section className="mt-16 grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="space-y-6">
@@ -143,6 +144,6 @@ function App() {
             </div>
           ))}
         </section>
-      </div>
+      </PageContainer>
   )
 }
