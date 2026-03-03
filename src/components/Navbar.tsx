@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
-import { useAuth } from '@/features/auth/auth.context'
-import { useMe } from '@/features/auth/useAuth'
+import { useAuth } from '@/features/auth.context'
+import { useMe } from '@/hooks/auth/useAuth'
 
 import FilterBar from './FilterBar'
 import AuthBtnGroup from './auth/AuthBtnGroup'

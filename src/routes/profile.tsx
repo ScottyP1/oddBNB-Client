@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 
 import InfoPill from '@/components/InfoPill'
-import { useMe } from '@/features/auth/useAuth'
+import { useMe } from '@/hooks/auth/useAuth'
 import PageContainer from '@/components/PageContainer'
 import StatCard from '@/components/admin/StatCard'
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useRouterState } from '@tanstack/react-router'
-import { useAuth } from '@/features/auth/auth.context'
-import { useMe } from '@/features/auth/useAuth'
+import { useAuth } from '@/features/auth.context'
+import { useMe } from '@/hooks/auth/useAuth'
 
 const UserMenu = () => {
   const { logout } = useAuth()

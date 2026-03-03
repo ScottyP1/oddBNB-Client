@@ -1,11 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { useListings } from '@/features/listings/useListings'
+import { useListings } from '@/hooks/listings/useListings'
 
 import ListingCard from '@/components/listings/ListingCard'
-import {
-  useAddFavorite,
-  useGetFavorites,
-} from '@/features/favorites/useFavorite'
+import { useAddFavorite, useGetFavorites } from '@/hooks/favorites/useFavorite'
 
 export const Route = createFileRoute('/listings/')({
   component: ListingsPage,

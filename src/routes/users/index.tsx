@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { useAllUsers } from '@/features/admin/useAdmin'
+import { useAllUsers } from '@/hooks/admin/useAdmin'
 
 import type { User } from '@/types/user'
-import { useListings } from '@/features/listings/useListings'
+import { useListings } from '@/hooks/listings/useListings'
 import PageContainer from '@/components/PageContainer'
 import StatContainer from '@/components/admin/StatContainer'
 

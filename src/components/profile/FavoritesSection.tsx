@@ -1,9 +1,6 @@
 import { Link } from '@tanstack/react-router'
 
-import {
-  useAddFavorite,
-  useGetFavorites,
-} from '@/features/favorites/useFavorite'
+import { useAddFavorite, useGetFavorites } from '@/hooks/favorites/useFavorite'
 import ListingCard from '@/components/listings/ListingCard'
 
 type FavoriteObject = {

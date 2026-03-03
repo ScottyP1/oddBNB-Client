@@ -1,4 +1,4 @@
-import type { AmenityKey } from '@/components/amenities/AmenitiesList'
+import type { AmenityKey } from '@/components/listings/amenities/AmenitiesList'
 
 export type ListingFormState = {
   title: string

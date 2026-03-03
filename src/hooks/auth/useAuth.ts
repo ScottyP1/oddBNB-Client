@@ -1,7 +1,7 @@
 import { getMe, register, login } from '@/api/auth.api'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
-import { useAuth } from '@/features/auth/auth.context'
+import { useAuth } from '@/features/auth.context'
 
 export function useMe() {
   const { token } = useAuth()

@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import ListingShell from '@/components/listings/ListingShell'
-import AmenitiesSection from '@/components/amenities/AmenitiesSection'
+import AmenitiesSection from '@/components/listings/amenities/AmenitiesSection'
 import ListingFormFooter from '@/components/listings/listingForm/ListingFormFooter'
 import ListingFormBody from '@/components/listings/listingForm/ListingFormBody'
 import ListingFormPricing from '@/components/listings/listingForm/ListingFormPricing'

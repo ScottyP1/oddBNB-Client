@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import RegisterForm from '@/components/auth/RegisterForm'
-import { useRegister } from '@/features/auth/useAuth'
+import { useRegister } from '@/hooks/auth/useAuth'
 
 import type { FormState } from '@/components/auth/RegisterForm'
 
