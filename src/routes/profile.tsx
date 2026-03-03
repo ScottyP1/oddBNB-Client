@@ -6,6 +6,7 @@ import PageContainer from '@/components/PageContainer'
 import StatCard from '@/components/admin/StatCard'
 
 import FavoritesSection from '@/components/profile/FavoritesSection'
+import ProfileHeader from '@/components/profile/ProfileHeader'
 
 export const Route = createFileRoute('/profile')({
   component: ProfilePage,
@@ -18,22 +19,7 @@ function ProfilePage() {
 
   return (
     <PageContainer>
-      <header className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-white/60">
-            Profile
-          </p>
-          <h1 className="text-3xl font-semibold sm:text-4xl">
-            Your oddBNB space
-          </h1>
-        </div>
-        <Link
-          to="/listings"
-          className="rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white/90 transition hover:bg-white/10"
-        >
-          Browse stays
-        </Link>
-      </header>
+      <ProfileHeader />
 
       <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="space-y-6 rounded-3xl border border-white/15 bg-black/60 p-6 shadow-2xl backdrop-blur">
