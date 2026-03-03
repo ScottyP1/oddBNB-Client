@@ -15,6 +15,7 @@ export type ListingFormState = {
   checkOutTime: string
   available: boolean
   amenities: AmenityKey[]
+  imageUrls: string[]
 }
 
 export type ListingFormField = keyof ListingFormState

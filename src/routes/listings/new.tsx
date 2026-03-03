@@ -1,24 +1,31 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import ListingShell from '@/components/listings/ListingShell'
 import AmenitiesSection from '@/components/listings/amenities/AmenitiesSection'
 import ListingFormFooter from '@/components/listings/listingForm/ListingFormFooter'
 import ListingFormBody from '@/components/listings/listingForm/ListingFormBody'
 import ListingFormPricing from '@/components/listings/listingForm/ListingFormPricing'
+import ListingFormGallery from '@/components/listings/listingForm/ListingFormGallery'
+import ListingFormHeader from '@/components/listings/listingForm/ListingFormHeader'
+import ListingCard from '@/components/listings/ListingCard'
+import { useCreateListingFlow } from '@/hooks/listings/useListings'
 
 import type {
   ListingFormField,
   ListingFormState,
   ListingFormValue,
 } from '@/types/listing'
-import ListingFormHeader from '@/components/listings/listingForm/ListingFormHeader'
 
 export const Route = createFileRoute('/listings/new')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const createListingFlow = useCreateListingFlow()
+
+  const [imageFiles, setImageFiles] = useState<File[]>([])
+
   const [form, setForm] = useState<ListingFormState>({
     title: '',
     description: '',
@@ -34,6 +41,7 @@ function RouteComponent() {
     checkOutTime: '',
     available: true,
     amenities: [],
+    imageUrls: [],
   })
 
   const updateField = (field: ListingFormField, value: ListingFormValue) => {
@@ -42,63 +50,138 @@ function RouteComponent() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    const payload = {
-      title: form.title,
-      description: form.description,
-      pricePerNight: Number(form.pricePerNight) || 0,
-      location: form.location,
-      lat: Number(form.lat) || 0,
-      lon: Number(form.lon) || 0,
-      beds: Number(form.beds) || 0,
-      baths: Number(form.baths) || 0,
-      capacity: Number(form.capacity) || 0,
-      squareFeet: Number(form.squareFeet) || 0,
-      checkInTime: form.checkInTime,
-      checkOutTime: form.checkOutTime,
-      available: form.available,
-      amenities: form.amenities,
-    }
 
-    console.log('Create listing payload:', payload)
+    createListingFlow.mutate({
+      form,
+      imageFiles,
+    })
   }
 
+  const handleImageSelect = (files: File[]) => {
+    if (!files.length) return
+    setImageFiles((prev) => [...prev, ...files])
+  }
+
+  const handleRemoveImage = (index: number) => {
+    setImageFiles((prev) => prev.filter((_, i) => i !== index))
+  }
+  useEffect(() => {
+    if (createListingFlow.isSuccess) {
+      setForm({
+        title: '',
+        description: '',
+        pricePerNight: '',
+        location: '',
+        lat: '',
+        lon: '',
+        beds: '',
+        baths: '',
+        capacity: '',
+        squareFeet: '',
+        checkInTime: '',
+        checkOutTime: '',
+        available: true,
+        amenities: [],
+        imageUrls: [],
+      })
+
+      setImageFiles([])
+    }
+  }, [createListingFlow.isSuccess])
   return (
-    <ListingShell
-      infoFullWidth
-      header={<ListingFormHeader />}
-      gallery={
-        <div className="rounded-3xl border border-white/15 bg-black/60 p-6 shadow-2xl backdrop-blur">
-          <p className="text-sm font-semibold">Gallery</p>
-          <p className="mt-2 text-sm text-white/60">
-            Upload high-quality photos that show the space.
-          </p>
-          <div className="mt-4 flex h-40 items-center justify-center rounded-2xl border border-dashed border-white/20 bg-white/5 text-sm text-white/50">
-            Drop images here
+    <>
+      <ListingShell
+        infoFullWidth
+        header={<ListingFormHeader />}
+        gallery={
+          <ListingFormGallery
+            files={imageFiles}
+            onSelectFiles={handleImageSelect}
+            onRemoveImage={handleRemoveImage}
+          />
+        }
+        info={
+          <ListingFormBody
+            form={form}
+            onChange={updateField}
+            onSubmit={handleSubmit}
+          />
+        }
+        sidebar={
+          <ListingFormPricing
+            pricePerNight={form.pricePerNight}
+            available={form.available}
+            onChange={updateField}
+          />
+        }
+        amenities={
+          <AmenitiesSection
+            variant="form"
+            selectedIds={form.amenities}
+            onChange={(next) => updateField('amenities', next)}
+          />
+        }
+        footer={
+          <ListingFormFooter
+            disabled={createListingFlow.isPending}
+            label={
+              createListingFlow.isPending ? 'Publishing...' : 'Publish listing'
+            }
+          />
+        }
+      />
+
+      {/* Publishing Overlay */}
+      {createListingFlow.isPending && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur">
+          <div className="flex flex-col items-center gap-4 rounded-3xl border border-white/15 bg-black/80 px-8 py-6 text-white shadow-2xl">
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white/70">
+              Publishing
+            </p>
+            <p className="text-sm text-white/60">Uploading images…</p>
           </div>
         </div>
-      }
-      info={
-        <ListingFormBody
-          form={form}
-          onChange={updateField}
-          onSubmit={handleSubmit}
-        />
-      }
-      sidebar={
-        <ListingFormPricing
-          pricePerNight={form.pricePerNight}
-          available={form.available}
-          onChange={updateField}
-        />
-      }
-      amenities={
-        <AmenitiesSection
-          variant="form"
-          selectedIds={form.amenities}
-          onChange={(next) => updateField('amenities', next)}
-        />
-      }
-      footer={<ListingFormFooter />}
-    />
+      )}
+
+      {/* Success Modal */}
+      {createListingFlow.isSuccess && createListingFlow.data && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur">
+          <div className="relative w-full max-w-2xl rounded-3xl border border-emerald-400/60 bg-black/80 p-8 shadow-[0_0_60px_rgba(16,185,129,0.35)]">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300">
+                  Success
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold text-white">
+                  Listing published
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => createListingFlow.reset()}
+                className="rounded-full border border-white/20 px-3 py-1 text-xs font-semibold text-white/80 transition hover:bg-white/10"
+              >
+                Close
+              </button>
+            </div>
+
+            <div className="mt-6 scale-105">
+              <ListingCard
+                title={createListingFlow.data.listing.title}
+                pricePerNight={createListingFlow.data.listing.pricePerNight}
+                images={
+                  createListingFlow.data.uploadedUrls.length > 0
+                    ? [createListingFlow.data.uploadedUrls[0]]
+                    : []
+                }
+                reviews={0}
+                isFavorited={false}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
