@@ -7,6 +7,9 @@ type CardProps = {
   images: string[]
   reviews: number
   isFavorited?: boolean
+  hideFavorite?: boolean
+  showDelete?: boolean
+  onDeleteClick?: () => void
   onFavoriteClick?: () => void
 }
 const ListingCard = ({
@@ -16,6 +19,9 @@ const ListingCard = ({
   images,
   reviews,
   isFavorited = false,
+  hideFavorite = false,
+  showDelete = false,
+  onDeleteClick,
   onFavoriteClick,
 }: CardProps) => {
   if (variant === 'horizontal') {
@@ -88,20 +94,34 @@ const ListingCard = ({
               {reviews}
             </div>
           </div>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault()
-              onFavoriteClick?.()
-            }}
-            className={`mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition ${
-              isFavorited
-                ? 'border-amber-400 bg-amber-400/15 text-amber-300'
-                : 'border-white/20 text-white/80 hover:bg-white/10'
-            }`}
-          >
-            {isFavorited ? 'Favorited' : 'Favorite'}
-          </button>
+          {!hideFavorite && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault()
+                onFavoriteClick?.()
+              }}
+              className={`mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition ${
+                isFavorited
+                  ? 'border-amber-400 bg-amber-400/15 text-amber-300'
+                  : 'border-white/20 text-white/80 hover:bg-white/10'
+              }`}
+            >
+              {isFavorited ? 'Favorited' : 'Favorite'}
+            </button>
+          )}
+          {showDelete && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault()
+                onDeleteClick?.()
+              }}
+              className="mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition hover:bg-red-500 hover:cursor-pointer"
+            >
+              Delete
+            </button>
+          )}
         </div>
       </div>
     </div>

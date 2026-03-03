@@ -17,7 +17,7 @@ type Listing = {
   capacity: number
   reviewCount: number
   rating: number | null
-  thumbnailUrl?: string
+  imageUrl?: string
 }
 function ListingsPage() {
   const { data: listings = [] } = useListings()
@@ -61,7 +61,7 @@ function ListingsPage() {
                 title={item.title}
                 pricePerNight={item.pricePerNight}
                 reviews={item.reviewCount}
-                images={item.thumbnailUrl ? [item.thumbnailUrl] : []}
+                images={item.imageUrl ? [item.imageUrl] : []}
                 isFavorited={favoritedIds.has(item.id)}
                 onFavoriteClick={() => handleFavorite(item.id)}
               />

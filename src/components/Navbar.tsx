@@ -10,11 +10,13 @@ import logoImg from '/logo.jpg'
 
 type NavbarProps = {
   hideAuthActions?: boolean
+  hideAddListing?: boolean
   variant?: 'home' | 'listings' | 'minimal'
 }
 
 const Navbar = ({
   hideAuthActions = false,
+  hideAddListing = false,
   variant = 'minimal',
 }: NavbarProps) => {
   const { token } = useAuth()
@@ -22,7 +24,9 @@ const Navbar = ({
   const showFilterBar = variant === 'listings'
   const showNavLinks = variant === 'home'
   const showAddListing =
-    Boolean(token) && (user?.role === 'ADMIN' || user?.role === 'HOST')
+    !hideAddListing &&
+    Boolean(token) &&
+    (user?.role === 'ADMIN' || user?.role === 'HOST')
   return (
     <div className="sticky top-0 z-50 text-white">
       <div className="backdrop-blur-md bg-black/40 border-b border-white/10">

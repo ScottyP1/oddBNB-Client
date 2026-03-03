@@ -51,7 +51,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   const isAuthRoute = pathname.startsWith('/auth')
   const isListingsRoute = pathname.startsWith('/listings')
   const isHomeRoute = pathname === '/'
-
+  const isCreateRoute = pathname === '/listings/new'
   const navbarVariant = isListingsRoute
     ? 'listings'
     : isHomeRoute
@@ -92,7 +92,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 />
               </div>
               <div className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-black/70 via-black/40 to-black/90" />
-              <Navbar hideAuthActions={isAuthRoute} variant={navbarVariant} />
+              <Navbar
+                hideAuthActions={isAuthRoute}
+                hideAddListing={isCreateRoute}
+                variant={navbarVariant}
+              />
               <div className="relative z-10">{children}</div>
             </div>
           </AuthProvider>
