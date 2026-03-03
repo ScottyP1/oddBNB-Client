@@ -9,13 +9,14 @@ type AmenitiesSectionProps = {
 
 const AmenitiesSection = ({
   variant = 'view',
-  selectedIds = [],
+  selectedIds,
   onChange,
 }: AmenitiesSectionProps) => {
   const isForm = variant === 'form'
-  const [selected, setSelected] = useState<AmenityKey[]>(selectedIds)
+  const [selected, setSelected] = useState<AmenityKey[]>(selectedIds ?? [])
 
   useEffect(() => {
+    if (!selectedIds) return
     setSelected(selectedIds)
   }, [selectedIds])
 

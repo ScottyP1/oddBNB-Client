@@ -16,7 +16,7 @@ const FavoritesSection = () => {
   const toggleFavorite = useAddFavorite()
 
   return (
-    <div className="rounded-3xl border border-white/15 bg-black/60 p-6 shadow-2xl backdrop-blur">
+    <div className="rounded-3xl border border-white/15 bg-black/60 p-6 shadow-2xl backdrop-blur max-h-100 overflow-x-hidden">
       <div className="flex items-center justify-between">
         <p className="text-sm font-semibold">Saved favorites</p>
         <button className="text-xs font-semibold text-white/70 transition hover:text-white">

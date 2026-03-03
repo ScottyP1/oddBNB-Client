@@ -10,6 +10,8 @@ export const createListing = async (payload: unknown) =>
   await api.post('/listings', payload)
 
 //UPDATE
+export const updateListing = async (id: string, payload: unknown) =>
+  await api.patch(`/listings/${id}`, payload)
 
 //DELETE
 export const deleteListing = async (id: string) => {

@@ -4,6 +4,8 @@ type ListingInputProps = {
   type?: string
   placeholder?: string
   value?: string | number
+  min?: number
+  max?: number
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -13,6 +15,8 @@ const ListingInput = ({
   type = 'text',
   placeholder,
   value,
+  min,
+  max,
   onChange,
 }: ListingInputProps) => {
   return (
@@ -24,6 +28,8 @@ const ListingInput = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        min={min}
+        max={max}
         className="mt-2 w-full rounded-2xl border border-white/15 bg-black/40 px-4 py-3 text-sm text-white outline-none focus:border-white/40"
       />
     </label>

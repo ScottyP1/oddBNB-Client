@@ -1,5 +1,9 @@
 import ListingInput from './ListingInput'
-import type { ListingFormField, ListingFormState, ListingFormValue } from '@/types/listing'
+import type {
+  ListingFormField,
+  ListingFormState,
+  ListingFormValue,
+} from '@/types/listing'
 
 type ListingFormBodyProps = {
   form: ListingFormState
@@ -39,11 +43,13 @@ const ListingFormBody = ({
         <ListingInput
           label="Title"
           value={form.title}
+          placeholder="e.g., Sunset Dreams"
           onChange={(e) => onChange('title', e.target.value)}
         />
         <ListingInput
           label="Location"
           value={form.location}
+          placeholder="e.g., 1234 Apple St, Apt 302, Springfield, IL 62704"
           onChange={(e) => onChange('location', e.target.value)}
         />
         <div className="grid gap-4 sm:grid-cols-2">
@@ -79,24 +85,36 @@ const ListingFormBody = ({
             label="Beds"
             value={form.beds}
             type="number"
+            placeholder="no. beds"
+            min={1}
+            max={100}
             onChange={(e) => onChange('beds', e.target.value)}
           />
           <ListingInput
             label="Baths"
             value={form.baths}
             type="number"
+            placeholder="no. baths"
+            min={1}
+            max={100}
             onChange={(e) => onChange('baths', e.target.value)}
           />
           <ListingInput
             label="Capacity"
             value={form.capacity}
             type="number"
+            placeholder="sleeps"
+            min={1}
+            max={100}
             onChange={(e) => onChange('capacity', e.target.value)}
           />
           <ListingInput
             label="Square feet"
             value={form.squareFeet}
             type="number"
+            placeholder="e.g., 1200"
+            min={1}
+            max={100000}
             onChange={(e) => onChange('squareFeet', e.target.value)}
           />
         </div>

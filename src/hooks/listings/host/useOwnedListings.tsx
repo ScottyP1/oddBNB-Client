@@ -16,6 +16,7 @@ export function useOwnedListings() {
       return res.data
     },
     staleTime: 1000 * 60 * 5,
+    refetchInterval: 1000 * 30 * 5,
   })
 }
 
