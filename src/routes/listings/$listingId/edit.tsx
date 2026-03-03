@@ -1,10 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 import ListingFormPage from '@/components/listings/ListingFormPage'
 
-export const Route = createFileRoute('/listings/new')({
+export const Route = createFileRoute('/listings/$listingId/edit')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return <ListingFormPage mode="create" />
+  const { listingId } = Route.useParams()
+  return <ListingFormPage mode="edit" listingId={listingId} />
 }

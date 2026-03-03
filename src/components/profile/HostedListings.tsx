@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 
 import {
   useOwnedListings,
@@ -11,11 +11,12 @@ type listingObject = {
   id: number
   imageUrl: string
   title: string
-  price: number
+  pricePerNight: number
 }
 
 const HostedListings = () => {
   const { data: ownedListings = [], isLoading } = useOwnedListings()
+  const navigate = useNavigate()
 
   const deleteListing = useDeleteListing()
   const handleDelete = (listingId: number) => {
@@ -37,20 +38,29 @@ const HostedListings = () => {
       <div className="grid grid-cols-4 gap-6">
         {ownedListings.length ? (
           ownedListings.map((listing: listingObject) => (
-            <Link
-              to="/listings/$listingId"
-              params={{ listingId: String(listing.id) }}
-            >
-              <ListingCard
-                title={listing.title}
-                pricePerNight={listing.price}
-                images={[listing.imageUrl]}
-                reviews={0}
-                hideFavorite={true}
-                showDelete={true}
-                onDeleteClick={() => handleDelete(listing.id)}
-              />
-            </Link>
+            <ListingCard
+              key={listing.id}
+              title={listing.title}
+              pricePerNight={listing.pricePerNight}
+              images={[listing.imageUrl]}
+              reviews={0}
+              hideFavorite={true}
+              showDelete={true}
+              showEdit={true}
+              onCardClick={() =>
+                navigate({
+                  to: '/listings/$listingId',
+                  params: { listingId: String(listing.id) },
+                })
+              }
+              onDeleteClick={() => handleDelete(listing.id)}
+              onEditClick={() =>
+                navigate({
+                  to: '/listings/$listingId/edit',
+                  params: { listingId: String(listing.id) },
+                })
+              }
+            />
           ))
         ) : (
           <span className="text-white/70">You have no listings</span>

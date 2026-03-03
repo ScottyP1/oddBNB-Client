@@ -21,6 +21,8 @@ const ListingFormPricing = ({
           label="Price per night"
           value={pricePerNight}
           type="number"
+          min={1}
+          max={1000000}
           onChange={(e) => onChange('pricePerNight', e.target.value)}
         />
 

@@ -19,14 +19,12 @@ function ProfilePage() {
   return (
     <PageContainer>
       <ProfileHeader />
-      <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="flex flex-col gap-4">
         <ProfileAccountSummary user={user} />
-        <div className="space-y-6">
-          <ProfileUpcomingStays />
-          <FavoritesSection />
-        </div>
+        <ProfileUpcomingStays />
+        <FavoritesSection />
+        <HostedListings />
       </section>
-      <HostedListings />
     </PageContainer>
   )
 }

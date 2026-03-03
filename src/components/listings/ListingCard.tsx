@@ -1,4 +1,4 @@
-import { Star } from 'lucide-react'
+import { Star, EditIcon } from 'lucide-react'
 
 type CardProps = {
   variant?: 'grid' | 'horizontal'
@@ -9,8 +9,12 @@ type CardProps = {
   isFavorited?: boolean
   hideFavorite?: boolean
   showDelete?: boolean
+  showEdit?: boolean
+  onCardClick?: () => void
   onDeleteClick?: () => void
+  onEditClick?: () => void
   onFavoriteClick?: () => void
+  handleViewNew?: () => void
 }
 const ListingCard = ({
   variant = 'grid',
@@ -21,7 +25,11 @@ const ListingCard = ({
   isFavorited = false,
   hideFavorite = false,
   showDelete = false,
+  showEdit = false,
+  onCardClick,
+  handleViewNew,
   onDeleteClick,
+  onEditClick,
   onFavoriteClick,
 }: CardProps) => {
   if (variant === 'horizontal') {
@@ -64,25 +72,50 @@ const ListingCard = ({
 
   return (
     <div
+      role={onCardClick ? 'button' : undefined}
+      onClick={onCardClick}
+      onKeyDown={(event) => {
+        if (!onCardClick) return
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
+          onCardClick()
+        }
+      }}
+      tabIndex={onCardClick ? 0 : undefined}
       className={`
         group relative w-full h-80
-        rounded-3xl bg-black/60 shadow-2xl cursor-pointer overflow-hidden
+        rounded-3xl bg-black/60 shadow-2xl ${onCardClick ? 'cursor-pointer' : ''}
         border border-white/10 backdrop-blur
         focus:outline-none focus:ring-2 focus:ring-amber-400/60
         ${isFavorited ? 'ring-2 ring-amber-400 shadow-[0_0_0_1px_rgba(245,158,11,0.6)]' : ''}
       `}
     >
       {/* Image */}
-      <div className="absolute inset-x-0 top-0 h-[62%] overflow-hidden z-10">
+      <div className="absolute inset-x-0 top-0 h-[62%] overflow-hidden z-10 ">
         <img
           src={images[0]}
           alt={title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-t-3xl"
         />
       </div>
+      {/* Edit icon */}
+      {showEdit && (
+        <button
+          type="button"
+          onClick={(event) => {
+            event.preventDefault()
+            event.stopPropagation()
+            onEditClick?.()
+          }}
+          className="absolute z-20 right-2 top-2"
+          aria-label="Edit listing"
+        >
+          <EditIcon color="white" size={25} />
+        </button>
+      )}
 
       {/* Content */}
-      <div className="absolute inset-x-0 bottom-0 z-20 bg-black/70 px-5 pb-4 pt-4 backdrop-blur">
+      <div className="absolute inset-x-0 bottom-0 z-20 bg-black/70 px-5 pb-4 pt-4 backdrop-blur rounded-b-3xl">
         <div className="flex flex-col gap-3">
           <h3 className="font-semibold text-lg text-white">{title}</h3>
 
@@ -120,6 +153,15 @@ const ListingCard = ({
               className="mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition hover:bg-red-500 hover:cursor-pointer"
             >
               Delete
+            </button>
+          )}
+          {handleViewNew && (
+            <button
+              type="button"
+              onClick={handleViewNew}
+              className="mt-1 w-full rounded-2xl border border-emerald-400/60 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-emerald-200 transition hover:bg-emerald-500/20 hover:cursor-pointer"
+            >
+              View
             </button>
           )}
         </div>

@@ -11,16 +11,12 @@ import ListingShell from '@/components/listings/ListingShell'
 
 import { useListing } from '@/hooks/listings/useListings'
 
-export const Route = createFileRoute('/listings/$listingId')({
+export const Route = createFileRoute('/listings/$listingId/')({
   component: Listing,
 })
 
 function Listing(): React.ReactElement {
-  const {
-    data: listing,
-    isLoading,
-    error,
-  } = useListing(Route.useParams().listingId)
+  const { data: listing, isLoading } = useListing(Route.useParams().listingId)
 
   if (isLoading) return <h1>Loading</h1>
 
