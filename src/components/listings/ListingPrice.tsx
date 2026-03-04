@@ -14,7 +14,7 @@ const ListingReserveSection = ({
   checkOutTime: string
 }) => {
   return (
-    <div className="flex flex-col rounded-3xl border border-white/70 bg-black/30 p-6 shadow-[0_35px_90px_-70px_rgba(15,23,42,0.7)] backdrop-blur lg:flex-1">
+    <div className="flex flex-col rounded-3xl border border-white/70 bg-black/30 p-6 shadow-[0_35px_90px_-70px_rgba(15,23,42,0.7)] backdrop-blur">
       <div className="flex items-center justify-between">
         <div>
           <div className="text-sm uppercase tracking-[0.3em] ">Nightly</div>
@@ -39,13 +39,6 @@ const ListingReserveSection = ({
           Max guests: {capacity}
         </div>
       </div>
-
-      <button
-        type="button"
-        className="mt-6 w-full rounded-2xl bg-slate-900 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-lg shadow-slate-900/30 hover:bg-slate-800"
-      >
-        Reserve
-      </button>
     </div>
   )
 }

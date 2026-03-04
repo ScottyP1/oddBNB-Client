@@ -1,18 +1,40 @@
+import { useOwnBookings } from '@/hooks/bookings/useListingBookings'
+import BookingCard from '../booking/BookingCard'
+
+export type BookingObject = {
+  title: string
+  checkIn: Date
+  checkOut: Date
+  guestsCount: number
+  nights: number
+  totalPrice: number
+  imageUrl: string
+  status: 'CONFIRMED' | 'PENDING' | 'REJECTED'
+}
 const ProfileUpcomingStays = () => {
+  const { data: bookings = [] } = useOwnBookings()
+  console.log(bookings)
   return (
-    <div className="rounded-3xl border border-white/15 bg-black/60 p-6 shadow-2xl backdrop-blur">
+    <div className="rounded-3xl border border-white/15 bg-black/60 p-6 shadow-2xl backdrop-blur max-h-100 overflow-x-hidden">
       <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm font-semibold">Upcoming stay</p>
-          <p className="text-xs text-white/60">Mar 14 - Mar 19</p>
-        </div>
-        <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/70">
-          Confirmed
-        </span>
+        <p className="text-sm font-semibold">Upcoming stays</p>
+        <button className="text-xs font-semibold text-white/70 transition hover:text-white">
+          Manage
+        </button>
       </div>
-      <div className="mt-4 rounded-2xl bg-linear-to-br from-sky-500/40 via-emerald-400/20 to-fuchsia-500/30 p-4">
-        <p className="text-sm font-semibold">Cliffside A-Frame</p>
-        <p className="text-xs text-white/70">Big Sur, CA</p>
+      <div className="mt-4 flex flex-col gap-3">
+        {bookings.map((booking: BookingObject) => (
+          <BookingCard
+            title={booking.title}
+            imageUrl={booking.imageUrl}
+            checkIn={booking.checkIn}
+            checkOut={booking.checkOut}
+            guestsCount={booking.guestsCount}
+            nights={booking.nights}
+            totalPrice={booking.totalPrice}
+            status={booking.status}
+          />
+        ))}
       </div>
     </div>
   )
