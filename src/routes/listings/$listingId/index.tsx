@@ -5,8 +5,8 @@ import AmenitiesSection from '@/components/listings/amenities/AmenitiesSection'
 import ListingItemHeader from '@/components/listings/ListingItemHeader'
 import ListingGallerySection from '@/components/listings/ListingGallerySection'
 import ListingInformation from '@/components/listings/ListingInformation'
-import ListingReserveSection from '@/components/listings/ListingReserveSection'
-import ListingCalender from '@/components/listings/ListingCalender'
+import ListingReserveSection from '@/components/listings/ListingPrice'
+import BookingSection from '@/components/listings/BookingSection'
 import ListingShell from '@/components/listings/ListingShell'
 
 import { useListing } from '@/hooks/listings/useListings'
@@ -34,7 +34,10 @@ function Listing(): React.ReactElement {
             checkInTime={listing.checkInTime}
             checkOutTime={listing.checkOutTime}
           />
-          <ListingCalender />
+          <BookingSection
+            listingId={String(listing.id)}
+            pricePerNight={listing.pricePerNight}
+          />
         </>
       }
       amenities={<AmenitiesSection />}
