@@ -22,25 +22,25 @@ function Listing(): React.ReactElement {
 
   return (
     <ListingShell
-      header={<ListingItemHeader host={listing.host} />}
-      gallery={<ListingGallerySection imageData={listing.imageUrls} />}
+      header={<ListingItemHeader host={listing?.host} />}
+      gallery={<ListingGallerySection imageData={listing?.imageUrls} />}
       info={<ListingInformation listingData={listing} />}
       sidebar={
         <>
           <ListingReserveSection
-            pricePerNight={listing.pricePerNight}
-            capacity={listing.capacity}
-            available={listing.available}
-            checkInTime={listing.checkInTime}
-            checkOutTime={listing.checkOutTime}
+            pricePerNight={listing?.pricePerNight}
+            capacity={listing?.capacity}
+            available={listing?.available}
+            checkInTime={listing?.checkInTime}
+            checkOutTime={listing?.checkOutTime}
           />
           <BookingSection
-            listingId={String(listing.id)}
-            pricePerNight={listing.pricePerNight}
+            listingId={String(listing?.id)}
+            pricePerNight={listing?.pricePerNight}
           />
         </>
       }
-      amenities={<AmenitiesSection />}
+      amenities={<AmenitiesSection amenities={listing?.amenities} />}
     />
   )
 }

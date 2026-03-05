@@ -16,9 +16,7 @@ export function useImageUpload() {
 
         const { uploadUrl, fileUrl } = presignRes.data
 
-        await axios.put(uploadUrl, file, {
-          headers: { 'Content-Type': file.type || 'application/octet-stream' },
-        })
+        await axios.put(uploadUrl, file)
 
         return fileUrl
       }),

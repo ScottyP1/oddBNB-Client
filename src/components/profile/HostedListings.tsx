@@ -26,16 +26,16 @@ const HostedListings = () => {
   if (isLoading) return <h1>Loading</h1>
   return (
     <div className="space-y-6 rounded-3xl border border-white/15 bg-black/60 p-6 shadow-2xl backdrop-blur">
-      <div className="flex justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2>Hosted Listings</h2>
         <Link
           to="/listings/new"
-          className="rounded-full border ml-5  border-white/30 px-4 text-center py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/90 transition hover:bg-white/10"
+          className="rounded-full border border-white/30 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.2em] text-white/90 transition hover:bg-white/10 sm:ml-5"
         >
           Add Listing
         </Link>
       </div>
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {ownedListings.length ? (
           ownedListings.map((listing: listingObject) => (
             <ListingCard

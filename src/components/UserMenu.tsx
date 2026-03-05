@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useRouterState } from '@tanstack/react-router'
+import { Link, useRouterState, useNavigate } from '@tanstack/react-router'
 import { useAuth } from '@/features/auth.context'
 import { useMe } from '@/hooks/auth/useAuth'
 
@@ -7,7 +7,11 @@ const UserMenu = () => {
   const { logout } = useAuth()
   const { data: user } = useMe()
   const [open, setOpen] = useState(false)
+
   const menuRef = useRef<HTMLDivElement>(null)
+
+  const navigate = useNavigate()
+
   const isAdmin = user?.role === 'ADMIN'
   const isHost = user?.role === 'HOST'
   const pathname = useRouterState({
@@ -30,6 +34,10 @@ const UserMenu = () => {
     setOpen(false)
   }, [pathname])
 
+  const handleLogout = () => {
+    navigate({ to: '/', replace: true })
+    logout()
+  }
   return (
     <div className="relative" ref={menuRef}>
       <button
@@ -75,7 +83,7 @@ const UserMenu = () => {
           )}
           <button
             type="button"
-            onClick={logout}
+            onClick={handleLogout}
             className="mt-1 w-full rounded-xl px-3 py-2 text-left text-white/80 transition hover:bg-white/10 hover:text-white"
           >
             Log out
