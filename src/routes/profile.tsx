@@ -15,7 +15,6 @@ export const Route = createFileRoute('/profile')({
 
 function ProfilePage() {
   const { data: user } = useMe()
-
   return (
     <PageContainer>
       <ProfileHeader />

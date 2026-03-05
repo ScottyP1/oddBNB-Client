@@ -20,6 +20,7 @@ export function useAddFavorite() {
 
     onSuccess: (_data, _variables, context) => {
       queryClient.invalidateQueries({ queryKey: ['favorites'] })
+      queryClient.invalidateQueries({ queryKey: ['me'] })
 
       if (context?.wasFavorited) {
         toast.success('Removed from favorites')

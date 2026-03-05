@@ -25,6 +25,7 @@ const ProfileUpcomingStays = () => {
       <div className="mt-4 flex flex-col gap-3">
         {bookings.map((booking: BookingObject) => (
           <BookingCard
+            key={booking.title}
             title={booking.title}
             imageUrl={booking.imageUrl}
             checkIn={booking.checkIn}

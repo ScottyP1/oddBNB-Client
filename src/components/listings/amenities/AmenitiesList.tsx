@@ -94,17 +94,32 @@ export const AMENITIES: AmenityOption[] = [
 type AmenitiesListProps = {
   selectable?: boolean
   selectedIds?: AmenityKey[]
+  amenities?: AmenityKey[]
   onToggle?: (id: AmenityKey) => void
 }
 
 const AmenitiesList = ({
   selectable = false,
   selectedIds = [],
+  amenities = [],
   onToggle,
 }: AmenitiesListProps) => {
+  const allowed = amenities.length > 0 ? new Set(amenities) : null
+  const items = allowed
+    ? AMENITIES.filter((item) => allowed.has(item.id))
+    : AMENITIES
+
+  if (items.length === 0) {
+    return (
+      <p className="text-sm text-white/60">
+        No amenities listed for this property.
+      </p>
+    )
+  }
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {AMENITIES.map((item) => (
+      {items.map((item) => (
         <AmenitiesItem
           key={item.id}
           title={item.title}

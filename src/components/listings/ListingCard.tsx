@@ -16,6 +16,57 @@ type CardProps = {
   onFavoriteClick?: () => void
   handleViewNew?: () => void
 }
+
+type ListingCardSkeletonProps = {
+  variant?: 'grid' | 'horizontal'
+}
+
+export const ListingCardSkeleton = ({
+  variant = 'grid',
+}: ListingCardSkeletonProps) => {
+  if (variant === 'horizontal') {
+    return (
+      <div
+        className={`
+          relative flex w-full items-center gap-4
+          rounded-2xl border border-white/10 bg-black/60 p-3
+          shadow-2xl backdrop-blur
+        `}
+      >
+        <div className="h-20 w-28 rounded-xl bg-white/10 animate-pulse" />
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
+          <div className="h-4 w-3/4 rounded bg-white/10 animate-pulse" />
+          <div className="h-3 w-1/2 rounded bg-white/10 animate-pulse" />
+        </div>
+        <div className="ml-auto h-7 w-20 rounded-full bg-white/10 animate-pulse" />
+      </div>
+    )
+  }
+
+  return (
+    <div
+      className={`
+        group relative w-full h-80
+        rounded-3xl bg-black/60 shadow-2xl
+        border border-white/10 backdrop-blur
+      `}
+    >
+      <div className="absolute inset-x-0 top-0 h-[62%] overflow-hidden z-10 rounded-t-3xl bg-white/10 animate-pulse" />
+
+      <div className="absolute inset-x-0 bottom-0 z-20 bg-black/70 px-5 pb-4 pt-4 backdrop-blur rounded-b-3xl">
+        <div className="flex flex-col gap-3">
+          <div className="h-5 w-3/4 rounded bg-white/10 animate-pulse" />
+          <div className="flex items-center justify-between gap-3">
+            <div className="h-4 w-1/3 rounded bg-white/10 animate-pulse" />
+            <div className="h-4 w-12 rounded bg-white/10 animate-pulse" />
+          </div>
+          <div className="mt-1 h-8 w-full rounded-2xl bg-white/10 animate-pulse" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const ListingCard = ({
   variant = 'grid',
   title,
