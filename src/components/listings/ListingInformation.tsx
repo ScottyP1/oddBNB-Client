@@ -24,7 +24,6 @@ const ListingInformation = ({
     },
   ]
 
-  console.log(listingData)
   return (
     <div className="rounded-3xl border border-white/70 bg-black/30 p-6 shadow-[0_30px_80px_-60px_rgba(15,23,42,0.6)] backdrop-blur">
       <h1 className="text-3xl font-semibold  sm:text-4xl">

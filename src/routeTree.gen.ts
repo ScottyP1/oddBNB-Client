@@ -10,24 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as ListingsRouteRouteImport } from './routes/listings/route'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as UsersIndexRouteImport } from './routes/users/index'
 import { Route as ListingsIndexRouteImport } from './routes/listings/index'
-import { Route as ListingsListingIdRouteImport } from './routes/listings/$listingId'
+import { Route as ListingsNewRouteImport } from './routes/listings/new'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthForgotRouteImport } from './routes/auth/forgot'
 import { Route as AuthPasswordResetRouteImport } from './routes/auth/PasswordReset'
+import { Route as ListingsListingIdIndexRouteImport } from './routes/listings/$listingId/index'
+import { Route as ListingsListingIdEditRouteImport } from './routes/listings/$listingId/edit'
+import { Route as ListingsListingId_routeRouteImport } from './routes/listings/$listingId/__route'
 
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ListingsRouteRoute = ListingsRouteRouteImport.update({
-  id: '/listings',
-  path: '/listings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
@@ -40,15 +38,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ListingsIndexRoute = ListingsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ListingsRouteRoute,
+const UsersIndexRoute = UsersIndexRouteImport.update({
+  id: '/users/',
+  path: '/users/',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ListingsListingIdRoute = ListingsListingIdRouteImport.update({
-  id: '/$listingId',
-  path: '/$listingId',
-  getParentRoute: () => ListingsRouteRoute,
+const ListingsIndexRoute = ListingsIndexRouteImport.update({
+  id: '/listings/',
+  path: '/listings/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListingsNewRoute = ListingsNewRouteImport.update({
+  id: '/listings/new',
+  path: '/listings/new',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
   id: '/register',
@@ -70,18 +73,36 @@ const AuthPasswordResetRoute = AuthPasswordResetRouteImport.update({
   path: '/PasswordReset',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const ListingsListingIdIndexRoute = ListingsListingIdIndexRouteImport.update({
+  id: '/listings/$listingId/',
+  path: '/listings/$listingId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListingsListingIdEditRoute = ListingsListingIdEditRouteImport.update({
+  id: '/listings/$listingId/edit',
+  path: '/listings/$listingId/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListingsListingId_routeRoute = ListingsListingId_routeRouteImport.update({
+  id: '/listings/$listingId/__route',
+  path: '/listings/$listingId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
-  '/listings': typeof ListingsRouteRouteWithChildren
   '/profile': typeof ProfileRoute
   '/auth/PasswordReset': typeof AuthPasswordResetRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/listings/$listingId': typeof ListingsListingIdRoute
+  '/listings/new': typeof ListingsNewRoute
   '/listings/': typeof ListingsIndexRoute
+  '/users/': typeof UsersIndexRoute
+  '/listings/$listingId': typeof ListingsListingId_routeRoute
+  '/listings/$listingId/edit': typeof ListingsListingIdEditRoute
+  '/listings/$listingId/': typeof ListingsListingIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -91,35 +112,44 @@ export interface FileRoutesByTo {
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/listings/$listingId': typeof ListingsListingIdRoute
+  '/listings/new': typeof ListingsNewRoute
   '/listings': typeof ListingsIndexRoute
+  '/users': typeof UsersIndexRoute
+  '/listings/$listingId': typeof ListingsListingIdIndexRoute
+  '/listings/$listingId/edit': typeof ListingsListingIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
-  '/listings': typeof ListingsRouteRouteWithChildren
   '/profile': typeof ProfileRoute
   '/auth/PasswordReset': typeof AuthPasswordResetRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/listings/$listingId': typeof ListingsListingIdRoute
+  '/listings/new': typeof ListingsNewRoute
   '/listings/': typeof ListingsIndexRoute
+  '/users/': typeof UsersIndexRoute
+  '/listings/$listingId/__route': typeof ListingsListingId_routeRoute
+  '/listings/$listingId/edit': typeof ListingsListingIdEditRoute
+  '/listings/$listingId/': typeof ListingsListingIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auth'
-    | '/listings'
     | '/profile'
     | '/auth/PasswordReset'
     | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
-    | '/listings/$listingId'
+    | '/listings/new'
     | '/listings/'
+    | '/users/'
+    | '/listings/$listingId'
+    | '/listings/$listingId/edit'
+    | '/listings/$listingId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -129,27 +159,38 @@ export interface FileRouteTypes {
     | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
-    | '/listings/$listingId'
+    | '/listings/new'
     | '/listings'
+    | '/users'
+    | '/listings/$listingId'
+    | '/listings/$listingId/edit'
   id:
     | '__root__'
     | '/'
     | '/auth'
-    | '/listings'
     | '/profile'
     | '/auth/PasswordReset'
     | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
-    | '/listings/$listingId'
+    | '/listings/new'
     | '/listings/'
+    | '/users/'
+    | '/listings/$listingId/__route'
+    | '/listings/$listingId/edit'
+    | '/listings/$listingId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  ListingsRouteRoute: typeof ListingsRouteRouteWithChildren
   ProfileRoute: typeof ProfileRoute
+  ListingsNewRoute: typeof ListingsNewRoute
+  ListingsIndexRoute: typeof ListingsIndexRoute
+  UsersIndexRoute: typeof UsersIndexRoute
+  ListingsListingId_routeRoute: typeof ListingsListingId_routeRoute
+  ListingsListingIdEditRoute: typeof ListingsListingIdEditRoute
+  ListingsListingIdIndexRoute: typeof ListingsListingIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -159,13 +200,6 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/listings': {
-      id: '/listings'
-      path: '/listings'
-      fullPath: '/listings'
-      preLoaderRoute: typeof ListingsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -182,19 +216,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/users/': {
+      id: '/users/'
+      path: '/users'
+      fullPath: '/users/'
+      preLoaderRoute: typeof UsersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/listings/': {
       id: '/listings/'
-      path: '/'
+      path: '/listings'
       fullPath: '/listings/'
       preLoaderRoute: typeof ListingsIndexRouteImport
-      parentRoute: typeof ListingsRouteRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/listings/$listingId': {
-      id: '/listings/$listingId'
-      path: '/$listingId'
-      fullPath: '/listings/$listingId'
-      preLoaderRoute: typeof ListingsListingIdRouteImport
-      parentRoute: typeof ListingsRouteRoute
+    '/listings/new': {
+      id: '/listings/new'
+      path: '/listings/new'
+      fullPath: '/listings/new'
+      preLoaderRoute: typeof ListingsNewRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/auth/register': {
       id: '/auth/register'
@@ -224,6 +265,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthPasswordResetRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/listings/$listingId/': {
+      id: '/listings/$listingId/'
+      path: '/listings/$listingId'
+      fullPath: '/listings/$listingId/'
+      preLoaderRoute: typeof ListingsListingIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/listings/$listingId/edit': {
+      id: '/listings/$listingId/edit'
+      path: '/listings/$listingId/edit'
+      fullPath: '/listings/$listingId/edit'
+      preLoaderRoute: typeof ListingsListingIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/listings/$listingId/__route': {
+      id: '/listings/$listingId/__route'
+      path: '/listings/$listingId'
+      fullPath: '/listings/$listingId'
+      preLoaderRoute: typeof ListingsListingId_routeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -245,25 +307,16 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
-interface ListingsRouteRouteChildren {
-  ListingsListingIdRoute: typeof ListingsListingIdRoute
-  ListingsIndexRoute: typeof ListingsIndexRoute
-}
-
-const ListingsRouteRouteChildren: ListingsRouteRouteChildren = {
-  ListingsListingIdRoute: ListingsListingIdRoute,
-  ListingsIndexRoute: ListingsIndexRoute,
-}
-
-const ListingsRouteRouteWithChildren = ListingsRouteRoute._addFileChildren(
-  ListingsRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
-  ListingsRouteRoute: ListingsRouteRouteWithChildren,
   ProfileRoute: ProfileRoute,
+  ListingsNewRoute: ListingsNewRoute,
+  ListingsIndexRoute: ListingsIndexRoute,
+  UsersIndexRoute: UsersIndexRoute,
+  ListingsListingId_routeRoute: ListingsListingId_routeRoute,
+  ListingsListingIdEditRoute: ListingsListingIdEditRoute,
+  ListingsListingIdIndexRoute: ListingsListingIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

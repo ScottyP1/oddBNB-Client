@@ -1,81 +1,220 @@
-import { Star, Heart, BedIcon, BathIcon } from 'lucide-react'
+import { Star, EditIcon } from 'lucide-react'
 
 type CardProps = {
+  variant?: 'grid' | 'horizontal'
   title: string
   pricePerNight: number
-  beds: number
-  baths: number
-  capacity: number
   images: string[]
   reviews: number
+  isFavorited?: boolean
+  hideFavorite?: boolean
+  showDelete?: boolean
+  showEdit?: boolean
+  onCardClick?: () => void
+  onDeleteClick?: () => void
+  onEditClick?: () => void
+  onFavoriteClick?: () => void
+  handleViewNew?: () => void
+}
+
+type ListingCardSkeletonProps = {
+  variant?: 'grid' | 'horizontal'
+}
+
+export const ListingCardSkeleton = ({
+  variant = 'grid',
+}: ListingCardSkeletonProps) => {
+  if (variant === 'horizontal') {
+    return (
+      <div
+        className={`
+          relative flex w-full items-center gap-4
+          rounded-2xl border border-white/10 bg-black/60 p-3
+          shadow-2xl backdrop-blur
+        `}
+      >
+        <div className="h-20 w-28 rounded-xl bg-white/10 animate-pulse" />
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
+          <div className="h-4 w-3/4 rounded bg-white/10 animate-pulse" />
+          <div className="h-3 w-1/2 rounded bg-white/10 animate-pulse" />
+        </div>
+        <div className="ml-auto h-7 w-20 rounded-full bg-white/10 animate-pulse" />
+      </div>
+    )
+  }
+
+  return (
+    <div
+      className={`
+        group relative w-full h-80
+        rounded-3xl bg-black/60 shadow-2xl
+        border border-white/10 backdrop-blur
+      `}
+    >
+      <div className="absolute inset-x-0 top-0 h-[62%] overflow-hidden z-10 rounded-t-3xl bg-white/10 animate-pulse" />
+
+      <div className="absolute inset-x-0 bottom-0 z-20 bg-black/70 px-5 pb-4 pt-4 backdrop-blur rounded-b-3xl">
+        <div className="flex flex-col gap-3">
+          <div className="h-5 w-3/4 rounded bg-white/10 animate-pulse" />
+          <div className="flex items-center justify-between gap-3">
+            <div className="h-4 w-1/3 rounded bg-white/10 animate-pulse" />
+            <div className="h-4 w-12 rounded bg-white/10 animate-pulse" />
+          </div>
+          <div className="mt-1 h-8 w-full rounded-2xl bg-white/10 animate-pulse" />
+        </div>
+      </div>
+    </div>
+  )
 }
 
 const ListingCard = ({
+  variant = 'grid',
   title,
   pricePerNight,
-  beds,
-  baths,
-  capacity,
   images,
   reviews,
+  isFavorited = false,
+  hideFavorite = false,
+  showDelete = false,
+  showEdit = false,
+  onCardClick,
+  handleViewNew,
+  onDeleteClick,
+  onEditClick,
+  onFavoriteClick,
 }: CardProps) => {
-  return (
-    <div
-      className="
-        group relative w-full h-77.5
-        rounded-3xl bg-white shadow-lg cursor-pointer
-        focus:outline-none focus:ring-2 focus:ring-indigo-500
-      "
-    >
-      {/* Image */}
+  if (variant === 'horizontal') {
+    return (
       <div
-        className="
-          absolute inset-x-0 top-0 h-[75%]
-          rounded-3xl overflow-hidden z-10
-          transition-transform duration-300 ease-out
-          shadow-[0px_10px_12px_3px_rgba(0,0,0,0.3)] shadow-black
-          /* Hover only on desktop */
-          md:group-hover:-translate-y-12
-        "
+        className={`
+          relative flex w-full items-center gap-4
+          rounded-2xl border border-white/10 bg-black/60 p-3
+          shadow-2xl backdrop-blur
+        `}
       >
         <img
           src={images[0]}
           alt={title}
-          className="w-full h-full object-cover"
+          className="h-20 w-28 rounded-xl object-cover"
         />
-
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          <p className="truncate text-sm font-semibold text-white">{title}</p>
+          <div className="flex items-center gap-2 text-xs text-white/70">
+            <span>${pricePerNight} · night</span>
+            <span className="flex items-center gap-1 text-white/80">
+              <Star size={12} fill="white" />
+              {reviews}
+            </span>
+          </div>
+        </div>
         <button
-          aria-label="Save listing"
-          className="absolute top-3 right-3 h-10 w-10 flex items-center justify-center text-white"
+          type="button"
+          onClick={(e) => {
+            e.preventDefault()
+            onFavoriteClick?.()
+          }}
+          className="ml-auto rounded-full border border-white/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:bg-white/10"
         >
-          <Heart size={20} fill="black" />
+          Unfavorite
         </button>
       </div>
+    )
+  }
+
+  return (
+    <div
+      role={onCardClick ? 'button' : undefined}
+      onClick={onCardClick}
+      onKeyDown={(event) => {
+        if (!onCardClick) return
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
+          onCardClick()
+        }
+      }}
+      tabIndex={onCardClick ? 0 : undefined}
+      className={`
+        group relative w-full h-80
+        rounded-3xl bg-black/60 shadow-2xl ${onCardClick ? 'cursor-pointer' : ''}
+        border border-white/10 backdrop-blur
+        focus:outline-none focus:ring-2 focus:ring-amber-400/60
+        ${isFavorited ? 'ring-2 ring-amber-400 shadow-[0_0_0_1px_rgba(245,158,11,0.6)]' : ''}
+      `}
+    >
+      {/* Image */}
+      <div className="absolute inset-x-0 top-0 h-[62%] overflow-hidden z-10 ">
+        <img
+          src={images[0]}
+          alt={title}
+          className="w-full h-full object-cover rounded-t-3xl"
+        />
+      </div>
+      {/* Edit icon */}
+      {showEdit && (
+        <button
+          type="button"
+          onClick={(event) => {
+            event.preventDefault()
+            event.stopPropagation()
+            onEditClick?.()
+          }}
+          className="absolute z-20 right-2 top-2"
+          aria-label="Edit listing"
+        >
+          <EditIcon color="white" size={25} />
+        </button>
+      )}
 
       {/* Content */}
-      <div className="absolute inset-x-0 bottom-0 px-5 pt-16 pb-2">
-        <div className="flex flex-col gap-1 text-sm text-gray-600 justify-center">
-          <span className="flex items-center gap-2">
-            <BedIcon size={15} />
-            {beds} beds ·
-            <BathIcon size={15} />
-            {baths} baths
-          </span>
+      <div className="absolute inset-x-0 bottom-0 z-20 bg-black/70 px-5 pb-4 pt-4 backdrop-blur rounded-b-3xl">
+        <div className="flex flex-col gap-3">
+          <h3 className="font-semibold text-lg text-white">{title}</h3>
 
-          <span>{capacity} guests</span>
-        </div>
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-white/70 text-sm">${pricePerNight} · night</p>
 
-        <div className="flex flex-col mt-3">
-          <h3 className="font-semibold text-lg text-black">{title}</h3>
-
-          <div className="flex items-center justify-between">
-            <p className="text-gray-500 text-sm">${pricePerNight} · night</p>
-
-            <div className="flex items-center gap-1">
-              <Star size={14} fill="black" />
+            <div className="flex items-center gap-1 text-white/80 text-xs">
+              <Star size={14} fill="white" />
               {reviews}
             </div>
           </div>
+          {!hideFavorite && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault()
+                onFavoriteClick?.()
+              }}
+              className={`mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition ${
+                isFavorited
+                  ? 'border-amber-400 bg-amber-400/15 text-amber-300'
+                  : 'border-white/20 text-white/80 hover:bg-white/10'
+              }`}
+            >
+              {isFavorited ? 'Favorited' : 'Favorite'}
+            </button>
+          )}
+          {showDelete && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault()
+                onDeleteClick?.()
+              }}
+              className="mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition hover:bg-red-500 hover:cursor-pointer"
+            >
+              Delete
+            </button>
+          )}
+          {handleViewNew && (
+            <button
+              type="button"
+              onClick={handleViewNew}
+              className="mt-1 w-full rounded-2xl border border-emerald-400/60 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-emerald-200 transition hover:bg-emerald-500/20 hover:cursor-pointer"
+            >
+              View
+            </button>
+          )}
         </div>
       </div>
     </div>
