@@ -1,0 +1,56 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    env:
+      AWS_REGION: us-east-1
+      ECR_REPOSITORY: oddbnb-frontend
+      ECS_CLUSTER: oddbnb-cluster
+      ECS_SERVICE: oddbnb-frontend-service
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to ECR
+        run: |
+          aws ecr get-login-password --region $AWS_REGION | \
+          docker login --username AWS --password-stdin 981425614405.dkr.ecr.us-east-1.amazonaws.com
+
+      - name: Build Docker image
+        run: |
+          docker build -t $ECR_REPOSITORY .
+
+      - name: Tag image
+        run: |
+          docker tag $ECR_REPOSITORY:latest \
+          981425614405.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:latest
+
+      - name: Push image to ECR
+        run: |
+          docker push \
+          981425614405.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:latest
+
+      - name: Force ECS redeploy
+        run: |
+          aws ecs update-service \
+            --cluster $ECS_CLUSTER \
+            --service $ECS_SERVICE \
+            --force-new-deployment
