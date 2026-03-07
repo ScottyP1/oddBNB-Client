@@ -12,8 +12,10 @@ export type BookingObject = {
   status: 'CONFIRMED' | 'PENDING' | 'REJECTED'
 }
 const ProfileUpcomingStays = () => {
-  const { data: bookings = [] } = useOwnBookings()
-  console.log(bookings)
+  const { data: bookings = [], isLoading } = useOwnBookings()
+
+  if (isLoading) return <h2>Loading</h2>
+
   return (
     <div className="rounded-3xl border border-white/15 bg-black/60 p-6 shadow-2xl backdrop-blur max-h-100 overflow-x-hidden">
       <div className="flex items-center justify-between">
@@ -25,15 +27,15 @@ const ProfileUpcomingStays = () => {
       <div className="mt-4 flex flex-col gap-3">
         {bookings.map((booking: BookingObject) => (
           <BookingCard
-            key={booking.title}
-            title={booking.title}
-            imageUrl={booking.imageUrl}
-            checkIn={booking.checkIn}
-            checkOut={booking.checkOut}
-            guestsCount={booking.guestsCount}
-            nights={booking.nights}
-            totalPrice={booking.totalPrice}
-            status={booking.status}
+            key={booking?.title}
+            title={booking?.title}
+            imageUrl={booking?.imageUrl}
+            checkIn={booking?.checkIn}
+            checkOut={booking?.checkOut}
+            guestsCount={booking?.guestsCount}
+            nights={booking?.nights}
+            totalPrice={booking?.totalPrice}
+            status={booking?.status}
           />
         ))}
       </div>
