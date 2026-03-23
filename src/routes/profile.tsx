@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { useMe } from '@/hooks/auth/useAuth'
+import { requireToken } from '@/lib/routeGuards'
 
 import PageContainer from '@/components/PageContainer'
 import FavoritesSection from '@/components/profile/FavoritesSection'
@@ -10,6 +11,9 @@ import ProfileUpcomingStays from '@/components/profile/ProfileUpcomingStays'
 import HostedListings from '@/components/profile/HostedListings'
 
 export const Route = createFileRoute('/profile')({
+  beforeLoad: () => {
+    requireToken()
+  },
   component: ProfilePage,
 })
 
