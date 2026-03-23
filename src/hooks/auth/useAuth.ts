@@ -3,16 +3,20 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { useAuth } from '@/features/auth.context'
 
+export const meQueryOptions = {
+  queryKey: ['me'],
+  queryFn: async () => {
+    const res = await getMe()
+    return res.data
+  },
+  staleTime: 1000 * 60 * 5,
+}
+
 export function useMe() {
   const { token } = useAuth()
   return useQuery({
-    queryKey: ['me'],
-    queryFn: async () => {
-      const res = await getMe()
-      return res.data
-    },
+    ...meQueryOptions,
     enabled: Boolean(token),
-    staleTime: 1000 * 60 * 5,
   })
 }
 

@@ -14,6 +14,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 import Navbar from '@/components/Navbar'
 import SquircleShift from '@/components/SquircleShift'
+import EvilEye from '@/components/EvilEye'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -41,8 +42,35 @@ export const Route = createRootRoute({
       },
     ],
   }),
+  notFoundComponent: NotFoundPage,
   shellComponent: RootDocument,
 })
+
+function NotFoundPage() {
+  return (
+    <div className="fixed inset-0 z-20 flex items-center justify-center bg-[#060010]">
+      <div className="absolute inset-0">
+        <EvilEye
+          eyeColor="#FF6F37"
+          intensity={1.5}
+          pupilSize={0.6}
+          irisWidth={0.25}
+          glowIntensity={0.35}
+          scale={0.8}
+          noiseScale={1}
+          pupilFollow={1}
+          flameSpeed={1}
+          backgroundColor="#060010"
+        />
+      </div>
+      <div className="relative z-10 select-none text-center">
+        <h1 className="text-[clamp(5rem,18vw,14rem)] font-black leading-none tracking-[0.08em] text-white">
+          404
+        </h1>
+      </div>
+    </div>
+  )
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const pathname = useRouterState({
@@ -101,17 +129,19 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             </div>
           </AuthProvider>
         </QueryClientProvider>
-        <TanStackDevtools
-          config={{
-            position: 'bottom-right',
-          }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-          ]}
-        />
+        {import.meta.env.DEV ? (
+          <TanStackDevtools
+            config={{
+              position: 'bottom-right',
+            }}
+            plugins={[
+              {
+                name: 'Tanstack Router',
+                render: <TanStackRouterDevtoolsPanel />,
+              },
+            ]}
+          />
+        ) : null}
         <Scripts />
       </body>
     </html>
