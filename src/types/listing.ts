@@ -18,5 +18,17 @@ export type ListingFormState = {
   imageUrls: string[]
 }
 
+export type Listing = {
+  id: number
+  title: string
+  pricePerNight: number
+  beds: number
+  baths: number
+  capacity: number
+  reviewCount: number
+  rating: number | null
+  imageUrl?: string
+}
+
 export type ListingFormField = keyof ListingFormState
 export type ListingFormValue = ListingFormState[ListingFormField]

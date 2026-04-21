@@ -16,14 +16,19 @@ function RegisterPage() {
     const [firstName, ...rest] = data.name.trim().split(' ')
     const lastName = rest.join(' ')
 
-    registerMutation.mutate({
-      firstName,
-      lastName,
-      email: data.email,
-      password: data.password,
-    })
-
-    navigator({ to: '/listings' })
+    registerMutation.mutate(
+      {
+        firstName,
+        lastName,
+        email: data.email,
+        password: data.password,
+      },
+      {
+        onSuccess: () => {
+          navigator({ to: '/listings' })
+        },
+      },
+    )
   }
 
   return (

@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { useAllUsers } from '@/hooks/admin/useAdmin'
+import { requireAdminUser } from '@/lib/routeGuards'
 
 import type { User } from '@/types/user'
 import { useListings } from '@/hooks/listings/useListings'
@@ -8,6 +9,9 @@ import PageContainer from '@/components/PageContainer'
 import StatContainer from '@/components/admin/StatContainer'
 
 export const Route = createFileRoute('/users/')({
+  beforeLoad: async ({ context }: { context: any }) => {
+    await requireAdminUser(context.queryClient)
+  },
   component: RouteComponent,
 })
 

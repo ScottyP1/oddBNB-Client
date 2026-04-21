@@ -10,7 +10,7 @@ const BookingCard = ({
   status,
   imageUrl,
 }: BookingObject) => {
-  const formatDate = (value: Date) =>
+  const formatDate = (value: string | Date) =>
     new Date(value).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
@@ -22,6 +22,13 @@ const BookingCard = ({
       : status === 'PENDING'
         ? 'border-amber-400/50 text-amber-300 bg-amber-500/10'
         : 'border-rose-400/50 text-rose-300 bg-rose-500/10'
+
+  const statusLabel =
+    status === 'CONFIRMED'
+      ? 'Accepted'
+      : status === 'PENDING'
+        ? 'Pending'
+        : 'Declined'
 
   return (
     <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-black/50 p-4 shadow-lg backdrop-blur">
@@ -41,7 +48,7 @@ const BookingCard = ({
           <span
             className={`shrink-0 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] ${statusStyles}`}
           >
-            {status}
+            {statusLabel}
           </span>
         </div>
 

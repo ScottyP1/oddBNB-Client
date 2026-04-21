@@ -254,7 +254,7 @@ const BookingSection = ({
             disabled={!range.to || createBooking.isPending}
             className="w-full rounded-full border border-white/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/90 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {createBooking.isPending ? 'Booking...' : 'Set reservation'}
+            {createBooking.isPending ? 'Sending...' : 'Request reservation'}
           </button>
         </div>
       )}
