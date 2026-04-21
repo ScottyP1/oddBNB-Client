@@ -101,10 +101,7 @@ const ListingCard = ({
           <p className="truncate text-sm font-semibold text-white">{title}</p>
           <div className="flex items-center gap-2 text-xs text-white/70">
             <span>${pricePerNight} · night</span>
-            <span className="flex items-center gap-1 text-white/80">
-              <Star size={12} fill="white" />
-              {reviews}
-            </span>
+
           </div>
         </div>
         <button
@@ -173,10 +170,6 @@ const ListingCard = ({
           <div className="flex items-center justify-between gap-3">
             <p className="text-white/70 text-sm">${pricePerNight} · night</p>
 
-            <div className="flex items-center gap-1 text-white/80 text-xs">
-              <Star size={14} fill="white" />
-              {reviews}
-            </div>
           </div>
           {!hideFavorite && (
             <button
@@ -185,11 +178,10 @@ const ListingCard = ({
                 e.preventDefault()
                 onFavoriteClick?.()
               }}
-              className={`mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition ${
-                isFavorited
-                  ? 'border-amber-400 bg-amber-400/15 text-amber-300'
-                  : 'border-white/20 text-white/80 hover:bg-white/10'
-              }`}
+              className={`mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition ${isFavorited
+                ? 'border-amber-400 bg-amber-400/15 text-amber-300'
+                : 'border-white/20 text-white/80 hover:bg-white/10'
+                }`}
             >
               {isFavorited ? 'Favorited' : 'Favorite'}
             </button>

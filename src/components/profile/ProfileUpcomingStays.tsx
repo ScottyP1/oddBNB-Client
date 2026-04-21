@@ -1,15 +1,17 @@
 import { useOwnBookings } from '@/hooks/bookings/useListingBookings'
+import type { BookingStatus } from '@/types/booking'
 import BookingCard from '../booking/BookingCard'
 
 export type BookingObject = {
+  bookingId?: number
   title: string
-  checkIn: Date
-  checkOut: Date
+  checkIn: string
+  checkOut: string
   guestsCount: number
   nights: number
   totalPrice: number
   imageUrl: string
-  status: 'CONFIRMED' | 'PENDING' | 'REJECTED'
+  status: BookingStatus
 }
 const ProfileUpcomingStays = () => {
   const { data: bookings = [], isLoading } = useOwnBookings()
@@ -27,7 +29,7 @@ const ProfileUpcomingStays = () => {
       <div className="mt-4 flex flex-col gap-3">
         {bookings.map((booking: BookingObject) => (
           <BookingCard
-            key={booking?.title}
+            key={booking.bookingId}
             title={booking?.title}
             imageUrl={booking?.imageUrl}
             checkIn={booking?.checkIn}

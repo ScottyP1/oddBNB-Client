@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useListings } from '@/hooks/listings/useListings'
 
+import type { Listing } from '@/types/listing'
+
 import ListingCard, {
   ListingCardSkeleton,
 } from '@/components/listings/ListingCard'
@@ -10,17 +12,7 @@ export const Route = createFileRoute('/listings/')({
   component: ListingsPage,
 })
 
-type Listing = {
-  id: number
-  title: string
-  pricePerNight: number
-  beds: number
-  baths: number
-  capacity: number
-  reviewCount: number
-  rating: number | null
-  imageUrl?: string
-}
+
 function ListingsPage() {
   const { data: listings = [], isLoading } = useListings()
   const { data: favorites = [] } = useGetFavorites()
@@ -55,24 +47,24 @@ function ListingsPage() {
         >
           {isLoading
             ? Array.from({ length: 12 }).map((_, index) => (
-                <ListingCardSkeleton key={`listing-skeleton-${index}`} />
-              ))
+              <ListingCardSkeleton key={`listing-skeleton-${index}`} />
+            ))
             : listings.map((item: Listing) => (
-                <Link
-                  to="/listings/$listingId"
-                  params={{ listingId: String(item.id) }}
-                  key={item.id}
-                >
-                  <ListingCard
-                    title={item.title}
-                    pricePerNight={item.pricePerNight}
-                    reviews={item.reviewCount}
-                    images={item.imageUrl ? [item.imageUrl] : []}
-                    isFavorited={favoritedIds.has(item.id)}
-                    onFavoriteClick={() => handleFavorite(item.id)}
-                  />
-                </Link>
-              ))}
+              <Link
+                to="/listings/$listingId"
+                params={{ listingId: String(item.id) }}
+                key={item.id}
+              >
+                <ListingCard
+                  title={item.title}
+                  pricePerNight={item.pricePerNight}
+                  reviews={item.reviewCount}
+                  images={item.imageUrl ? [item.imageUrl] : []}
+                  isFavorited={favoritedIds.has(item.id)}
+                  onFavoriteClick={() => handleFavorite(item.id)}
+                />
+              </Link>
+            ))}
         </div>
       </section>
     </div>

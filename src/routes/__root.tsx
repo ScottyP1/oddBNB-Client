@@ -129,7 +129,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             </div>
           </AuthProvider>
         </QueryClientProvider>
-        {import.meta.env.DEV ? (
+        {/* {import.meta.env.DEV ? (
           <TanStackDevtools
             config={{
               position: 'bottom-right',
@@ -141,7 +141,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               },
             ]}
           />
-        ) : null}
+        ) : null} */}
         <Scripts />
       </body>
     </html>

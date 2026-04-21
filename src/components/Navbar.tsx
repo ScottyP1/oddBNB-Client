@@ -44,19 +44,19 @@ const Navbar = ({
             </div>
           </Link>
 
-          {showFilterBar && (
+          {/* {showFilterBar && (
             <div className="hidden flex-1 md:block">
               <FilterBar />
             </div>
-          )}
-          {showNavLinks && (
+          )} */}
+          {/* {showNavLinks && (
             <nav className="hidden items-center gap-6 text-sm text-white/70 md:flex">
               <span>Stays</span>
               <span>Experiences</span>
               <span>Host</span>
               <span>Help</span>
             </nav>
-          )}
+          )} */}
 
           {!hideAuthActions && !token && (
             <div className="ml-auto shrink-0">

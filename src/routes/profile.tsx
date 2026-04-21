@@ -9,6 +9,8 @@ import ProfileHeader from '@/components/profile/ProfileHeader'
 import ProfileAccountSummary from '@/components/profile/ProfileAccountSummary'
 import ProfileUpcomingStays from '@/components/profile/ProfileUpcomingStays'
 import HostedListings from '@/components/profile/HostedListings'
+import HostPendingBookings from '@/components/profile/HostPendingBookings'
+import BecomeHostPanel from '@/components/profile/BecomeHostPanel'
 
 export const Route = createFileRoute('/profile')({
   beforeLoad: () => {
@@ -19,6 +21,7 @@ export const Route = createFileRoute('/profile')({
 
 function ProfilePage() {
   const { data: user } = useMe()
+  const canHost = user?.role === 'HOST' || user?.role === 'ADMIN'
   return (
     <PageContainer>
       <ProfileHeader />
@@ -26,7 +29,8 @@ function ProfilePage() {
         <ProfileAccountSummary user={user} />
         <ProfileUpcomingStays />
         <FavoritesSection />
-        <HostedListings />
+        {canHost ? <HostPendingBookings /> : <BecomeHostPanel />}
+        {canHost ? <HostedListings /> : null}
       </section>
     </PageContainer>
   )

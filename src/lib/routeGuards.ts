@@ -29,3 +29,13 @@ export async function requireAdminUser(queryClient: QueryClient) {
 
   return user
 }
+
+export async function requireHostUser(queryClient: QueryClient) {
+  const user = await requireAuthenticatedUser(queryClient)
+
+  if (user.role !== 'HOST' && user.role !== 'ADMIN') {
+    throw redirect({ to: '/profile' })
+  }
+
+  return user
+}
