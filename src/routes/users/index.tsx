@@ -9,7 +9,7 @@ import PageContainer from '@/components/PageContainer'
 import StatContainer from '@/components/admin/StatContainer'
 
 export const Route = createFileRoute('/users/')({
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async ({ context }: { context: any }) => {
     await requireAdminUser(context.queryClient)
   },
   component: RouteComponent,

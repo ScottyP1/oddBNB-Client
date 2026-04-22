@@ -2,6 +2,10 @@ export type User = {
   id: number
   email: string
   firstName: string
-  name: string
+  lastName: string
+  name?: string
   role: 'GUEST' | 'ADMIN' | 'HOST'
+  bookingIds: number[]
+  favoriteIds: number[]
+  hostedListingIds: number[]
 }

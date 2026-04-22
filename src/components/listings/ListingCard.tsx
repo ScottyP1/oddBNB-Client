@@ -1,4 +1,5 @@
 import { Star, EditIcon } from 'lucide-react'
+import { resolveImageUrl } from '@/lib/resolveImageUrl'
 
 type CardProps = {
   variant?: 'grid' | 'horizontal'
@@ -93,7 +94,7 @@ const ListingCard = ({
         `}
       >
         <img
-          src={images[0]}
+          src={resolveImageUrl(images[0])}
           alt={title}
           className="h-20 w-28 rounded-xl object-cover"
         />
@@ -101,10 +102,7 @@ const ListingCard = ({
           <p className="truncate text-sm font-semibold text-white">{title}</p>
           <div className="flex items-center gap-2 text-xs text-white/70">
             <span>${pricePerNight} · night</span>
-            <span className="flex items-center gap-1 text-white/80">
-              <Star size={12} fill="white" />
-              {reviews}
-            </span>
+
           </div>
         </div>
         <button
@@ -144,7 +142,7 @@ const ListingCard = ({
       {/* Image */}
       <div className="absolute inset-x-0 top-0 h-[62%] overflow-hidden z-10 ">
         <img
-          src={images[0]}
+          src={resolveImageUrl(images[0])}
           alt={title}
           className="w-full h-full object-cover rounded-t-3xl"
         />
@@ -173,10 +171,6 @@ const ListingCard = ({
           <div className="flex items-center justify-between gap-3">
             <p className="text-white/70 text-sm">${pricePerNight} · night</p>
 
-            <div className="flex items-center gap-1 text-white/80 text-xs">
-              <Star size={14} fill="white" />
-              {reviews}
-            </div>
           </div>
           {!hideFavorite && (
             <button
@@ -185,11 +179,10 @@ const ListingCard = ({
                 e.preventDefault()
                 onFavoriteClick?.()
               }}
-              className={`mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition ${
-                isFavorited
-                  ? 'border-amber-400 bg-amber-400/15 text-amber-300'
-                  : 'border-white/20 text-white/80 hover:bg-white/10'
-              }`}
+              className={`mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition ${isFavorited
+                ? 'border-amber-400 bg-amber-400/15 text-amber-300'
+                : 'border-white/20 text-white/80 hover:bg-white/10'
+                }`}
             >
               {isFavorited ? 'Favorited' : 'Favorite'}
             </button>
