@@ -1,4 +1,5 @@
 import { Star, EditIcon } from 'lucide-react'
+import { resolveImageUrl } from '@/lib/resolveImageUrl'
 
 type CardProps = {
   variant?: 'grid' | 'horizontal'
@@ -93,7 +94,7 @@ const ListingCard = ({
         `}
       >
         <img
-          src={images[0]}
+          src={resolveImageUrl(images[0])}
           alt={title}
           className="h-20 w-28 rounded-xl object-cover"
         />
@@ -141,7 +142,7 @@ const ListingCard = ({
       {/* Image */}
       <div className="absolute inset-x-0 top-0 h-[62%] overflow-hidden z-10 ">
         <img
-          src={images[0]}
+          src={resolveImageUrl(images[0])}
           alt={title}
           className="w-full h-full object-cover rounded-t-3xl"
         />

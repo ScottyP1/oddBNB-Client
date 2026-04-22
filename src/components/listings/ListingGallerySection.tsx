@@ -1,9 +1,11 @@
+import { resolveImageUrl } from '@/lib/resolveImageUrl'
+
 const ListingGallerySection = ({ imageData }: { imageData: Array<string> }) => {
   return (
     <>
       <div className="relative overflow-hidden rounded-3xl border border-white/70 bg-white/40 shadow-[0_40px_120px_-70px_rgba(15,23,42,0.8)] backdrop-blur">
         <img
-          src={imageData[0]}
+          src={resolveImageUrl(imageData[0])}
           alt="Hosted property image"
           className="h-105 w-full object-cover"
         />
@@ -20,7 +22,7 @@ const ListingGallerySection = ({ imageData }: { imageData: Array<string> }) => {
             className="group overflow-hidden rounded-2xl border border-white/70 bg-white/50 shadow-sm"
           >
             <img
-              src={image}
+              src={resolveImageUrl(image)}
               alt={`preview ${index + 1}`}
               className="h-24 w-full object-cover transition duration-300 group-hover:scale-105"
             />

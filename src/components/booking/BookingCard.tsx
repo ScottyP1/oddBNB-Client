@@ -1,4 +1,5 @@
 import type { BookingObject } from '../profile/ProfileUpcomingStays'
+import { resolveImageUrl } from '@/lib/resolveImageUrl'
 
 const BookingCard = ({
   title,
@@ -33,7 +34,7 @@ const BookingCard = ({
   return (
     <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-black/50 p-4 shadow-lg backdrop-blur">
       <img
-        src={imageUrl}
+        src={resolveImageUrl(imageUrl)}
         alt={title}
         className="h-14 w-20 rounded-xl object-cover ring-1 ring-white/10"
       />

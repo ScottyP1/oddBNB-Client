@@ -4,6 +4,7 @@ import {
   useHostBookings,
   useUpdateBookingStatus,
 } from '@/hooks/bookings/useListingBookings'
+import { resolveImageUrl } from '@/lib/resolveImageUrl'
 
 const HostPendingBookings = () => {
   const { data: bookings = [], isLoading } = useHostBookings()
@@ -38,7 +39,7 @@ const HostPendingBookings = () => {
               className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-black/50 p-4 lg:flex-row lg:items-center"
             >
               <img
-                src={booking.imageUrl}
+                src={resolveImageUrl(booking.imageUrl)}
                 alt={booking.title}
                 className="h-24 w-full rounded-2xl object-cover lg:h-20 lg:w-28"
               />

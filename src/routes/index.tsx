@@ -1,10 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 
-import cliffSideImg from '/listings/cliffSide.png'
-import lakeCabinImg from '/listings/lakeCabin.png'
-import tentImg from '/listings/tent.png'
 import PageContainer from '@/components/PageContainer'
 import InfoPill from '@/components/InfoPill'
+import { resolveImageUrl } from '@/lib/resolveImageUrl'
 
 export const Route = createFileRoute('/')({ component: App })
 
@@ -66,26 +64,29 @@ function App() {
               title: 'Cliffside A-Frame',
               location: 'Big Sur, CA',
               price: '$320/night',
-              image: cliffSideImg,
+              image: '/listings/cliffSide.png',
             },
             {
               title: 'Glass Dome',
               location: 'Joshua Tree, CA',
               price: '$280/night',
-              image: tentImg,
+              image: '/listings/tent.png',
             },
             {
               title: 'Floating Cabin',
               location: 'Lake Louise, CA',
               price: '$240/night',
-              image: lakeCabinImg,
+              image: '/listings/lakeCabin.png',
             },
           ].map((stay) => (
             <div
               key={stay.title}
               className="rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur"
             >
-              <img className="h-36 rounded-2xl w-full" src={stay.image} />
+              <img
+                className="h-36 rounded-2xl w-full"
+                src={resolveImageUrl(stay.image)}
+              />
               <div className="mt-4 flex items-center justify-between">
                 <div>
                   <p className="text-sm font-semibold">{stay.title}</p>
