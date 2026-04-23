@@ -109,6 +109,7 @@ const ListingCard = ({
           type="button"
           onClick={(e) => {
             e.preventDefault()
+            e.stopPropagation()
             onFavoriteClick?.()
           }}
           className="ml-auto rounded-full border border-white/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:bg-white/10"
@@ -177,6 +178,7 @@ const ListingCard = ({
               type="button"
               onClick={(e) => {
                 e.preventDefault()
+                e.stopPropagation()
                 onFavoriteClick?.()
               }}
               className={`mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition ${isFavorited
@@ -192,6 +194,7 @@ const ListingCard = ({
               type="button"
               onClick={(e) => {
                 e.preventDefault()
+                e.stopPropagation()
                 onDeleteClick?.()
               }}
               className="mt-1 w-full rounded-2xl border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] transition hover:bg-red-500 hover:cursor-pointer"
@@ -202,7 +205,11 @@ const ListingCard = ({
           {handleViewNew && (
             <button
               type="button"
-              onClick={handleViewNew}
+              onClick={(event) => {
+                event.preventDefault()
+                event.stopPropagation()
+                handleViewNew()
+              }}
               className="mt-1 w-full rounded-2xl border border-emerald-400/60 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-emerald-200 transition hover:bg-emerald-500/20 hover:cursor-pointer"
             >
               View
