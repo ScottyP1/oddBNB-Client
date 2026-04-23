@@ -19,6 +19,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const setToken = (t: string | null) => {
+    if (token !== t) {
+      queryClient.clear()
+    }
+
     if (t) {
       localStorage.setItem('token', t)
     } else {
@@ -29,7 +33,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     setToken(null)
-    queryClient.removeQueries({ queryKey: ['me'] })
   }
 
   return (

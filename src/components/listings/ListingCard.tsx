@@ -94,7 +94,7 @@ const ListingCard = ({
         `}
       >
         <img
-          src={resolveImageUrl(images[0])}
+          src={images[0]}
           alt={title}
           className="h-20 w-28 rounded-xl object-cover"
         />

@@ -59,7 +59,7 @@ const UserMenu = () => {
             Profile
           </Link>
           <Link
-            to="/profile"
+            to="/profile/trips"
             className="block rounded-xl px-3 py-2 text-white/80 transition hover:bg-white/10 hover:text-white"
           >
             Trips & stays

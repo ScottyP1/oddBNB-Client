@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { favorite, getFavorites } from '@/api/favorites.api'
+import { useAuth } from '@/features/auth.context'
 import toast from 'react-hot-toast'
 
 export function useAddFavorite() {
@@ -38,12 +39,15 @@ export function useAddFavorite() {
 }
 
 export function useGetFavorites() {
+  const { token } = useAuth()
+
   return useQuery({
     queryKey: ['favorites'],
     queryFn: async () => {
       const res = await getFavorites()
       return res.data
     },
+    enabled: Boolean(token),
     staleTime: 1000 * 60 * 5,
   })
 }
