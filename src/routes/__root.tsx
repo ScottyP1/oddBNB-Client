@@ -15,6 +15,7 @@ import { Toaster } from 'react-hot-toast'
 import Navbar from '@/components/Navbar'
 import SquircleShift from '@/components/SquircleShift'
 import EvilEye from '@/components/EvilEye'
+import Footer from '@/components/Footer'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -106,7 +107,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             }}
           />
           <AuthProvider>
-            <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-white">
+            <div className="relative flex min-h-screen flex-col overflow-hidden bg-neutral-950 text-white">
               <div className="pointer-events-none fixed inset-0 z-0 opacity-70">
                 <SquircleShift
                   width="100%"
@@ -125,7 +126,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 hideAddListing={isCreateRoute}
                 variant={navbarVariant}
               />
-              <div className="relative z-10">{children}</div>
+              <div className="relative z-10 flex-1">{children}</div>
+              <Footer />
             </div>
           </AuthProvider>
         </QueryClientProvider>

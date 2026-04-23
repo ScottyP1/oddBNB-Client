@@ -1,3 +1,5 @@
+import { Link } from '@tanstack/react-router'
+
 import StatCard from '../admin/StatCard'
 import InfoPill from '../InfoPill'
 
@@ -34,9 +36,12 @@ const ProfileAccountSummary = ({
             {user?.email || 'you@email.com'}
           </p>
         </div>
-        <button className="text-xs font-semibold text-white/70 transition hover:text-white ml-auto">
+        <Link
+          to="/profile/settings"
+          className="ml-auto text-xs font-semibold text-white/70 transition hover:text-white"
+        >
           Manage
-        </button>
+        </Link>
       </div>
 
       <div className="flex flex-wrap gap-3 text-xs text-white/60">

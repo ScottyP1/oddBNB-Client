@@ -1,3 +1,5 @@
+import { Link } from '@tanstack/react-router'
+
 import { useOwnBookings } from '@/hooks/bookings/useListingBookings'
 import type { BookingStatus } from '@/types/booking'
 import BookingCard from '../booking/BookingCard'
@@ -22,9 +24,13 @@ const ProfileUpcomingStays = () => {
     <div className="rounded-3xl border border-white/15 bg-black/60 p-6 shadow-2xl backdrop-blur max-h-100 overflow-x-hidden">
       <div className="flex items-center justify-between">
         <p className="text-sm font-semibold">Upcoming stays</p>
-        <button className="text-xs font-semibold text-white/70 transition hover:text-white">
+        <Link
+          to="/profile/trips"
+          search={{ tab: 'bookings' }}
+          className="text-xs font-semibold text-white/70 transition hover:text-white"
+        >
           Manage
-        </button>
+        </Link>
       </div>
       <div className="mt-4 flex flex-col gap-3">
         {bookings.map((booking: BookingObject) => (

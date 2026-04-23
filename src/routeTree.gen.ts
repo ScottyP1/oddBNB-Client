@@ -9,11 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as ProfileRouteRouteImport } from './routes/profile/route'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersIndexRouteImport } from './routes/users/index'
+import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 import { Route as ListingsIndexRouteImport } from './routes/listings/index'
+import { Route as UsersUserIdRouteImport } from './routes/users/$userId'
+import { Route as ProfileTripsRouteImport } from './routes/profile/trips'
+import { Route as ProfileSettingsRouteImport } from './routes/profile/settings'
+import { Route as ProfileHostingRouteImport } from './routes/profile/hosting'
 import { Route as ListingsNewRouteImport } from './routes/listings/new'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
@@ -23,7 +28,7 @@ import { Route as ListingsListingIdIndexRouteImport } from './routes/listings/$l
 import { Route as ListingsListingIdEditRouteImport } from './routes/listings/$listingId/edit'
 import { Route as ListingsListingId_routeRouteImport } from './routes/listings/$listingId/__route'
 
-const ProfileRoute = ProfileRouteImport.update({
+const ProfileRouteRoute = ProfileRouteRouteImport.update({
   id: '/profile',
   path: '/profile',
   getParentRoute: () => rootRouteImport,
@@ -43,10 +48,35 @@ const UsersIndexRoute = UsersIndexRouteImport.update({
   path: '/users/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileIndexRoute = ProfileIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProfileRouteRoute,
+} as any)
 const ListingsIndexRoute = ListingsIndexRouteImport.update({
   id: '/listings/',
   path: '/listings/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const UsersUserIdRoute = UsersUserIdRouteImport.update({
+  id: '/users/$userId',
+  path: '/users/$userId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileTripsRoute = ProfileTripsRouteImport.update({
+  id: '/trips',
+  path: '/trips',
+  getParentRoute: () => ProfileRouteRoute,
+} as any)
+const ProfileSettingsRoute = ProfileSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => ProfileRouteRoute,
+} as any)
+const ProfileHostingRoute = ProfileHostingRouteImport.update({
+  id: '/hosting',
+  path: '/hosting',
+  getParentRoute: () => ProfileRouteRoute,
 } as any)
 const ListingsNewRoute = ListingsNewRouteImport.update({
   id: '/listings/new',
@@ -92,13 +122,18 @@ const ListingsListingId_routeRoute = ListingsListingId_routeRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
-  '/profile': typeof ProfileRoute
+  '/profile': typeof ProfileRouteRouteWithChildren
   '/auth/PasswordReset': typeof AuthPasswordResetRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/listings/new': typeof ListingsNewRoute
+  '/profile/hosting': typeof ProfileHostingRoute
+  '/profile/settings': typeof ProfileSettingsRoute
+  '/profile/trips': typeof ProfileTripsRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/listings/': typeof ListingsIndexRoute
+  '/profile/': typeof ProfileIndexRoute
   '/users/': typeof UsersIndexRoute
   '/listings/$listingId': typeof ListingsListingId_routeRoute
   '/listings/$listingId/edit': typeof ListingsListingIdEditRoute
@@ -107,13 +142,17 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
-  '/profile': typeof ProfileRoute
   '/auth/PasswordReset': typeof AuthPasswordResetRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/listings/new': typeof ListingsNewRoute
+  '/profile/hosting': typeof ProfileHostingRoute
+  '/profile/settings': typeof ProfileSettingsRoute
+  '/profile/trips': typeof ProfileTripsRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/listings': typeof ListingsIndexRoute
+  '/profile': typeof ProfileIndexRoute
   '/users': typeof UsersIndexRoute
   '/listings/$listingId': typeof ListingsListingIdIndexRoute
   '/listings/$listingId/edit': typeof ListingsListingIdEditRoute
@@ -122,13 +161,18 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
-  '/profile': typeof ProfileRoute
+  '/profile': typeof ProfileRouteRouteWithChildren
   '/auth/PasswordReset': typeof AuthPasswordResetRoute
   '/auth/forgot': typeof AuthForgotRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/listings/new': typeof ListingsNewRoute
+  '/profile/hosting': typeof ProfileHostingRoute
+  '/profile/settings': typeof ProfileSettingsRoute
+  '/profile/trips': typeof ProfileTripsRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/listings/': typeof ListingsIndexRoute
+  '/profile/': typeof ProfileIndexRoute
   '/users/': typeof UsersIndexRoute
   '/listings/$listingId/__route': typeof ListingsListingId_routeRoute
   '/listings/$listingId/edit': typeof ListingsListingIdEditRoute
@@ -145,7 +189,12 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/listings/new'
+    | '/profile/hosting'
+    | '/profile/settings'
+    | '/profile/trips'
+    | '/users/$userId'
     | '/listings/'
+    | '/profile/'
     | '/users/'
     | '/listings/$listingId'
     | '/listings/$listingId/edit'
@@ -154,13 +203,17 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
-    | '/profile'
     | '/auth/PasswordReset'
     | '/auth/forgot'
     | '/auth/login'
     | '/auth/register'
     | '/listings/new'
+    | '/profile/hosting'
+    | '/profile/settings'
+    | '/profile/trips'
+    | '/users/$userId'
     | '/listings'
+    | '/profile'
     | '/users'
     | '/listings/$listingId'
     | '/listings/$listingId/edit'
@@ -174,7 +227,12 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/listings/new'
+    | '/profile/hosting'
+    | '/profile/settings'
+    | '/profile/trips'
+    | '/users/$userId'
     | '/listings/'
+    | '/profile/'
     | '/users/'
     | '/listings/$listingId/__route'
     | '/listings/$listingId/edit'
@@ -184,8 +242,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  ProfileRoute: typeof ProfileRoute
+  ProfileRouteRoute: typeof ProfileRouteRouteWithChildren
   ListingsNewRoute: typeof ListingsNewRoute
+  UsersUserIdRoute: typeof UsersUserIdRoute
   ListingsIndexRoute: typeof ListingsIndexRoute
   UsersIndexRoute: typeof UsersIndexRoute
   ListingsListingId_routeRoute: typeof ListingsListingId_routeRoute
@@ -199,7 +258,7 @@ declare module '@tanstack/react-router' {
       id: '/profile'
       path: '/profile'
       fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
+      preLoaderRoute: typeof ProfileRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -223,12 +282,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsersIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile/': {
+      id: '/profile/'
+      path: '/'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof ProfileIndexRouteImport
+      parentRoute: typeof ProfileRouteRoute
+    }
     '/listings/': {
       id: '/listings/'
       path: '/listings'
       fullPath: '/listings/'
       preLoaderRoute: typeof ListingsIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/users/$userId': {
+      id: '/users/$userId'
+      path: '/users/$userId'
+      fullPath: '/users/$userId'
+      preLoaderRoute: typeof UsersUserIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile/trips': {
+      id: '/profile/trips'
+      path: '/trips'
+      fullPath: '/profile/trips'
+      preLoaderRoute: typeof ProfileTripsRouteImport
+      parentRoute: typeof ProfileRouteRoute
+    }
+    '/profile/settings': {
+      id: '/profile/settings'
+      path: '/settings'
+      fullPath: '/profile/settings'
+      preLoaderRoute: typeof ProfileSettingsRouteImport
+      parentRoute: typeof ProfileRouteRoute
+    }
+    '/profile/hosting': {
+      id: '/profile/hosting'
+      path: '/hosting'
+      fullPath: '/profile/hosting'
+      preLoaderRoute: typeof ProfileHostingRouteImport
+      parentRoute: typeof ProfileRouteRoute
     }
     '/listings/new': {
       id: '/listings/new'
@@ -307,11 +401,30 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface ProfileRouteRouteChildren {
+  ProfileHostingRoute: typeof ProfileHostingRoute
+  ProfileSettingsRoute: typeof ProfileSettingsRoute
+  ProfileTripsRoute: typeof ProfileTripsRoute
+  ProfileIndexRoute: typeof ProfileIndexRoute
+}
+
+const ProfileRouteRouteChildren: ProfileRouteRouteChildren = {
+  ProfileHostingRoute: ProfileHostingRoute,
+  ProfileSettingsRoute: ProfileSettingsRoute,
+  ProfileTripsRoute: ProfileTripsRoute,
+  ProfileIndexRoute: ProfileIndexRoute,
+}
+
+const ProfileRouteRouteWithChildren = ProfileRouteRoute._addFileChildren(
+  ProfileRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
-  ProfileRoute: ProfileRoute,
+  ProfileRouteRoute: ProfileRouteRouteWithChildren,
   ListingsNewRoute: ListingsNewRoute,
+  UsersUserIdRoute: UsersUserIdRoute,
   ListingsIndexRoute: ListingsIndexRoute,
   UsersIndexRoute: UsersIndexRoute,
   ListingsListingId_routeRoute: ListingsListingId_routeRoute,

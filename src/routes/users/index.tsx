@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
 import { useAllUsers } from '@/hooks/admin/useAdmin'
 import { requireAdminUser } from '@/lib/routeGuards'
@@ -70,24 +70,33 @@ function RouteComponent() {
         <div className="rounded-3xl border border-white/15 bg-black/60 p-6 shadow-2xl backdrop-blur">
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold">Recent signups</p>
-            <button className="text-xs font-semibold text-white/70 transition hover:text-white">
-              View all
-            </button>
+            <span className="text-xs font-semibold text-white/50">
+              Select a user to manage
+            </span>
           </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {users.slice(0, 6).map((user: User) => (
-              <div
+              <Link
                 key={user.id}
-                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
+                to="/users/$userId"
+                params={{ userId: String(user.id) }}
+                className="group rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition hover:bg-white/10"
               >
-                <p className="text-sm font-semibold">
-                  {user.name || `${user.firstName} ${user.email.split('@')[0]}`}
-                </p>
-                <p className="text-xs text-white/60">{user.email}</p>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-semibold">
+                      {user.name || `${user.firstName} ${user.email.split('@')[0]}`}
+                    </p>
+                    <p className="text-xs text-white/60">{user.email}</p>
+                  </div>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/55 transition group-hover:text-white">
+                    Manage
+                  </span>
+                </div>
                 <p className="mt-2 text-xs uppercase tracking-[0.2em] text-white/50">
                   {user.role}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
