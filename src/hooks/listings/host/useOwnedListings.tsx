@@ -3,6 +3,7 @@ import { useMe } from '@/hooks/auth/useAuth'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteListing } from '@/api/listings.api'
 import toast from 'react-hot-toast'
+import type { Listing } from '@/types/listing'
 
 export function useOwnedListings() {
   const { data: user } = useMe()
@@ -25,10 +26,41 @@ export function useDeleteListing() {
 
   return useMutation({
     mutationFn: deleteListing,
+    onMutate: async (listingId) => {
+      await queryClient.cancelQueries({ queryKey: ['myListings'] })
+      await queryClient.cancelQueries({ queryKey: ['listings'] })
+
+      const previousOwnedListings = queryClient.getQueriesData<Listing[]>({
+        queryKey: ['myListings'],
+      })
+      const previousListings = queryClient.getQueryData<Listing[]>(['listings'])
+
+      const removeListing = (listings: Listing[] | undefined) =>
+        listings?.filter((listing) => String(listing.id) !== listingId) ?? []
+
+      previousOwnedListings.forEach(([queryKey, listings]) => {
+        queryClient.setQueryData(queryKey, removeListing(listings))
+      })
+      queryClient.setQueryData(['listings'], removeListing(previousListings))
+
+      return { previousOwnedListings, previousListings }
+    },
 
     onSuccess: () => {
       toast.success('Listing deleted')
+    },
+
+    onError: (_error, _listingId, context) => {
+      context?.previousOwnedListings.forEach(([queryKey, listings]) => {
+        queryClient.setQueryData(queryKey, listings)
+      })
+      queryClient.setQueryData(['listings'], context?.previousListings)
+      toast.error('Unable to delete listing')
+    },
+
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['myListings'] })
+      queryClient.invalidateQueries({ queryKey: ['listings'] })
     },
   })
 }
