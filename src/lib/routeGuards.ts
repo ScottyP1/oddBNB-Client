@@ -10,18 +10,30 @@ function getStoredToken() {
 }
 
 export function requireToken() {
+  // Auth is stored in localStorage, so we can only reliably enforce this check
+  // in the browser. During SSR/hard refresh, defer the check until hydration.
+  if (typeof window === 'undefined') return
+
   if (!getStoredToken()) {
     throw redirect({ to: '/auth/login' })
   }
 }
 
 export async function requireAuthenticatedUser(queryClient: QueryClient) {
+  if (typeof window === 'undefined') return null
+
   requireToken()
   return queryClient.ensureQueryData(meQueryOptions) as Promise<User>
 }
 
 export async function requireAdminUser(queryClient: QueryClient) {
+  if (typeof window === 'undefined') return null
+
   const user = await requireAuthenticatedUser(queryClient)
+
+  if (!user) {
+    throw redirect({ to: '/auth/login' })
+  }
 
   if (user.role !== 'ADMIN') {
     throw redirect({ to: '/' })
@@ -31,7 +43,13 @@ export async function requireAdminUser(queryClient: QueryClient) {
 }
 
 export async function requireHostUser(queryClient: QueryClient) {
+  if (typeof window === 'undefined') return null
+
   const user = await requireAuthenticatedUser(queryClient)
+
+  if (!user) {
+    throw redirect({ to: '/auth/login' })
+  }
 
   if (user.role !== 'HOST' && user.role !== 'ADMIN') {
     throw redirect({ to: '/profile' })

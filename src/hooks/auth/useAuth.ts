@@ -61,16 +61,27 @@ export function useLogin() {
 }
 
 export function useBecomeHost() {
-  const { setToken } = useAuth()
+  const { token, setToken } = useAuth()
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: becomeHost,
 
-    onSuccess: (res) => {
-      setToken(res.token)
-      queryClient.setQueryData(['me'], res.user)
-      queryClient.invalidateQueries({ queryKey: ['me'] })
+    onSuccess: async (res) => {
+      // Some backends return a refreshed token on role changes, others only
+      // persist the new role server-side. Keep the current token unless a new
+      // one is explicitly returned so we do not accidentally log the user out.
+      const nextToken = res?.token ?? token
+
+      if (nextToken) {
+        setToken(nextToken)
+      }
+
+      if (res?.user) {
+        queryClient.setQueryData(['me'], res.user)
+      }
+
+      await queryClient.invalidateQueries({ queryKey: ['me'] })
       toast.success('You can host now!')
     },
 
