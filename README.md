@@ -18,13 +18,13 @@ The application integrates with a **Spring Boot backend API** and uses **AWS S3 
 Frontend
 
 ```
-https://theoddbnb.com
+https://odd-bnb-client.vercel.app/
 ```
 
 API
 
 ```
-https://api.theoddbnb.com
+
 ```
 
 ---
